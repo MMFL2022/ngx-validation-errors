@@ -1,5 +1,8 @@
 # NgxValidationErrors
 
+Something to look into:  https://juristr.com/blog/2019/02/display-server-side-validation-errors-with-angular/
+Or this:  https://github.com/AlexITC/crypto-coin-alerts/blob/develop/alerts-ui/src/app/error.service.ts
+
 This library allows you to show dynamically created errors in forms.
 
 Choose the version corresponding to your Angular version:

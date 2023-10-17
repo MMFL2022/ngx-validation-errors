@@ -52,18 +52,21 @@ export class FormFieldEmptyContainerDirective implements DoCheck {
       messages = Object.keys(this.formControl.errors || {}).map(error => {
         const fieldName = this.formControlName;
         const errorKey = `${toScreamingSnakeCase(fieldName)}.ERRORS.${toScreamingSnakeCase(error)}`;
-        if (this.messageProvider &&
-          this.messageProvider.instant(`${this.validationContext}.${errorKey}`) === `${this.validationContext}.${errorKey}`) {
+        
+        if (this.messageProvider && this.messageProvider.instant(`${this.validationContext}.${errorKey}`) === `${this.validationContext}.${errorKey}`) {
           return `${this.validationErrorsConfig.defaultContext}.ERRORS.${toScreamingSnakeCase(error)}`;
         } else {
           return `${this.validationContext}.${errorKey}`;
         }
       });
+
       const params = Object.values(this.formControl.errors || {}).reduce((a, b) => {
         a = {...a, ...b};
         return a;
       }, {});
+
       this.messageParams = this.messageParams ? {...this.messageParams, ...params} : params;
+
       if (messages && messages.length > 0) {
         messages = [messages[0]];
       }

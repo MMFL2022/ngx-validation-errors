@@ -6,17 +6,20 @@ import {
   ComponentRef,
   ElementRef,
   HostBinding,
+  Inject,
   Input,
   OnDestroy,
+  Optional,
   Renderer2,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {ValidationErrorsConfig} from './error-validation-config';
+import {VALIDATION_ERROR_CONFIG, ValidationErrorsConfig} from './error-validation-config';
 import {toScreamingSnakeCase} from './utils';
 import {AbstractControl} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {toChangeObservable} from './toChangeObservable';
+import { MESSAGES_PROVIDER } from './injection-tokens';
 
 @Component({
   template: ''
@@ -45,10 +48,10 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
   constructor(
     //private elRef: ElementRef,
     private renderer: Renderer2,
-    private messageProvider: { instant(key: string): string; },
+    @Optional() @Inject(MESSAGES_PROVIDER) private messageProvider: { instant(key: string): string; },
     //private cdRef: ChangeDetectorRef,
     //private componentFactoryResolver: ComponentFactoryResolver,
-    private validationErrorsConfig: ValidationErrorsConfig) {
+    @Inject(VALIDATION_ERROR_CONFIG) private validationErrorsConfig: ValidationErrorsConfig) {
     this.validationContext = validationErrorsConfig.defaultContext;
   }
 
