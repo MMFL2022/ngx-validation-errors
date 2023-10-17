@@ -1,6 +1,6 @@
-import {AbstractControl} from '@angular/forms';
+import {AbstractControl, FormControlStatus} from '@angular/forms';
 import {merge, Observable, Subject} from 'rxjs';
-import {debounceTime, mergeAll, tap} from 'rxjs/operators';
+import {debounceTime} from 'rxjs/operators';
 
 function wrapMethod(subject$: Subject<void>, name: string, control: AbstractControl) {
 
@@ -14,7 +14,7 @@ function wrapMethod(subject$: Subject<void>, name: string, control: AbstractCont
   control[name] = wrappedMethod;
 }
 
-export function toChangeObservable(control: AbstractControl): Observable<void> {
+export function toChangeObservable(control: AbstractControl): Observable<void | FormControlStatus> {
 
   const touchedChanges$ = new Subject<void>();
 

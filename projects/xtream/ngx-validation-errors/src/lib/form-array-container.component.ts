@@ -1,7 +1,7 @@
 import {
-  ChangeDetectorRef,
+  //ChangeDetectorRef,
   Component,
-  ComponentFactoryResolver,
+  //ComponentFactoryResolver,
   ContentChild,
   ElementRef,
   Inject,
@@ -31,18 +31,19 @@ export class FormArrayContainerComponent extends FormValidationContainer {
 
   constructor(
     // tslint:disable-next-line:variable-name
-    private _elRef: ElementRef,
+    //private _elRef: ElementRef,
     // tslint:disable-next-line:variable-name
     private _renderer: Renderer2,
     // tslint:disable-next-line:variable-name
     @Optional() @Inject(MESSAGES_PROVIDER) private _messageProvider: { instant(key: string): string; },
     // tslint:disable-next-line:variable-name
-    private _cdRef: ChangeDetectorRef,
+    //private _cdRef: ChangeDetectorRef,
     // tslint:disable-next-line:variable-name
-    private _componentFactoryResolver: ComponentFactoryResolver,
+    //private _componentFactoryResolver: ComponentFactoryResolver,
     // tslint:disable-next-line:variable-name
     @Inject(VALIDATION_ERROR_CONFIG) private  _validationErrorsConfig: ValidationErrorsConfig) {
-    super(_elRef, _renderer, _messageProvider, _cdRef, _componentFactoryResolver, _validationErrorsConfig);
+      //super(_elRef, _renderer, _messageProvider, _cdRef, _componentFactoryResolver, _validationErrorsConfig);
+    super(_renderer, _messageProvider, _validationErrorsConfig);
   }
 
   get formControl() {

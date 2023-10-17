@@ -1,7 +1,8 @@
 import {
   AfterContentInit,
-  ChangeDetectorRef,
-  ComponentFactoryResolver,
+  //ChangeDetectorRef,
+  Component,
+  //ComponentFactoryResolver,
   ComponentRef,
   ElementRef,
   HostBinding,
@@ -17,6 +18,9 @@ import {AbstractControl} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {toChangeObservable} from './toChangeObservable';
 
+@Component({
+  template: ''
+})
 export abstract class FormValidationContainer implements AfterContentInit, OnDestroy {
 
   @Input() customErrorMessages: {} = {};
@@ -39,11 +43,11 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
   private subscription: Subscription;
 
   constructor(
-    private elRef: ElementRef,
+    //private elRef: ElementRef,
     private renderer: Renderer2,
     private messageProvider: { instant(key: string): string; },
-    private cdRef: ChangeDetectorRef,
-    private componentFactoryResolver: ComponentFactoryResolver,
+    //private cdRef: ChangeDetectorRef,
+    //private componentFactoryResolver: ComponentFactoryResolver,
     private validationErrorsConfig: ValidationErrorsConfig) {
     this.validationContext = validationErrorsConfig.defaultContext;
   }
@@ -66,8 +70,9 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
   addErrorComponent() {
     if (this.errorsContainer && !this.componentRef) {
       this.errorsContainer.clear();
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.validationErrorsConfig.errorComponent as any);
-      this.componentRef = this.errorsContainer.createComponent(componentFactory);
+      // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.validationErrorsConfig.errorComponent as any);
+      // this.componentRef = this.errorsContainer.createComponent(componentFactory);
+      this.componentRef = this.errorsContainer.createComponent(this.validationErrorsConfig.errorComponent as any);
     }
   }
 

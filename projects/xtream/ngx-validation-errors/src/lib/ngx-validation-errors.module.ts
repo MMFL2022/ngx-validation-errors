@@ -53,13 +53,13 @@ export function configFactory(customConfig: ValidationErrorsConfig, currentConfi
     ValidationContextComponent,
     FormFieldEmptyContainerDirective
   ],
-  entryComponents: [
-    InputErrorsComponent
-  ]
+  // entryComponents: [
+  //   InputErrorsComponent
+  // ]
 })
 export class NgxValidationErrorsModule {
 
-  static forRoot(config?: ValidationErrorsConfig): ModuleWithProviders {
+  static forRoot(config?: ValidationErrorsConfig): ModuleWithProviders<NgxValidationErrorsModule> {
     return {
       ngModule: NgxValidationErrorsModule,
       providers: [

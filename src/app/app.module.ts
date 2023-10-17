@@ -73,7 +73,7 @@ export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesPr
       useExisting: SimpleMessagesProviderService
     }
   ],
-  entryComponents: [CustomErrorsComponent],
+  //entryComponents: [CustomErrorsComponent],
   bootstrap: [
     AppComponent
   ]
