@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function toScreamingSnakeCase(input) {\n  return input.replace(/([a-z])([A-Z])/g, '$1_$2').toUpperCase();\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

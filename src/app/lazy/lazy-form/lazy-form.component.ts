@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
-import {ValidationContextComponent} from '@xtream/ngx-validation-errors';
+import { ValidationContextComponent } from 'projects/xtream/ngx-validation-errors/src/public-api';
+// import {ValidationContextComponent} from '@xtream/ngx-validation-errors';
 import {distinctUntilChanged, tap} from 'rxjs/operators';
 
 function minCheckSelected(size: number) {

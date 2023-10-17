@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { InjectionToken } from '@angular/core';\nexport const VALIDATION_ERROR_CONFIG = new InjectionToken('validationError.config');","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

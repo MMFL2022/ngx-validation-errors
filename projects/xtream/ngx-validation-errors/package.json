@@ -1,16 +1,16 @@
 {
   "name": "@xtream/ngx-validation-errors",
   "author": "Luca Micieli <luca.micieli@xtreamers.io>",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "repository": {
     "url": "https://github.com/xtreamsrl/ngx-validation-errors"
   },
   "peerDependencies": {
-    "@angular/common": "^9.1.11",
-    "@angular/core": "^9.1.11",
-    "@angular/forms": "^9.1.11"
+    "@angular/common": "^16.0.0",
+    "@angular/core": "^16.0.0",
+    "@angular/forms": "^16.0.0"
   },
   "dependencies": {
-    "tslib": "^1.10.0"
+    "tslib": "^2.3.0"
   }
 }

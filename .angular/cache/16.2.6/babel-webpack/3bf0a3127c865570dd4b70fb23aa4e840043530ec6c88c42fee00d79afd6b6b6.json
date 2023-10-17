@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const ERRORS = {\n  'GENERAL.ERRORS.MINLENGTH': 'IL campo deve essere almeno di x caratteri',\n  'GENERAL.ERRORS.REQUIRED': 'Campo obblogatorio'\n};","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
