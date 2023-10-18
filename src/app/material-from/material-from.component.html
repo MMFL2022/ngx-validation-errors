@@ -26,14 +26,14 @@
 <form [formGroup]="heroForm" validationContext="USER.REGISTRATION">
   <div style="display:flex;flex-direction: column;">
     <mat-form-field  *ngxValidationErrors="heroForm.get('name');errors as errors">
-      <input matInput formControlName="name" placeholder="name"/>
+      <input matInput formControlName="name" placeholder="name" ngxValidationInput/>
       <mat-error *ngIf="errors">{{errors}}</mat-error>
     </mat-form-field>
   </div>
 
   <div style="display:flex;flex-direction: column;">
     <mat-form-field  *ngxValidationErrors="heroForm.get('surname');errors as errors">
-      <input matInput formControlName="surname" placeholder="surname"/>
+      <input matInput ngxValidationInput formControlName="surname" placeholder="surname"/>
       <mat-error *ngIf="errors">{{errors}}</mat-error>
     </mat-form-field>
   </div>

@@ -13,7 +13,7 @@
     <input class="form-control" formControlName="surname"/>
   </div>
   <button class="btn btn-primary">Submit</button>
-  <button class="btn btn-primary" type="button" (click)="reset()" )>Rest</button>
+  <button class="btn btn-primary" type="button" (click)="reset()">Rest</button>
 
 </form>
 
@@ -21,11 +21,11 @@
 <form [formGroup]="heroForm" validationContext="USER.REGISTRATION">
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Name</label>
-    <input class="form-control" formControlName="name"/>
+    <input class="form-control" formControlName="name2"/>
   </div>
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Surmane</label>
-    <input class="form-control" formControlName="surname"/>
+    <input class="form-control" formControlName="surname2"/>
   </div>
   <button class="btn btn-primary" [disabled]="heroForm.invalid">Submit</button>
 

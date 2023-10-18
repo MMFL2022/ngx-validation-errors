@@ -1,8 +1,10 @@
-import {Directive, DoCheck, Inject, Input, Optional, Renderer2, TemplateRef, ViewContainerRef} from '@angular/core';
-import {AbstractControl, ControlContainer, FormGroup, FormGroupDirective} from '@angular/forms';
+import {AfterContentInit, ContentChild, ContentChildren, Directive, DoCheck, ElementRef, Inject, Input, Optional, QueryList, Renderer2, TemplateRef, ViewContainerRef} from '@angular/core';
+import {AbstractControl, ControlContainer, FormControl, FormControlName, FormGroup, FormGroupDirective} from '@angular/forms';
 import {VALIDATION_ERROR_CONFIG, ValidationErrorsConfig} from './error-validation-config';
 import {toScreamingSnakeCase} from './utils';
 import {MESSAGES_PROVIDER} from './injection-tokens';
+import { MatInput } from '@angular/material/input';
+import { InputFormFieldDirective } from './input-form-field.directive';
 
 export class ForFieldErrorsContext {
   constructor(public errors: string[]) {
@@ -11,14 +13,14 @@ export class ForFieldErrorsContext {
 
 @Directive({
   selector: '[ngxValidationErrors]',
-  providers: [
-    {
-      provide: ControlContainer,
-      useExisting: FormGroupDirective
-    }
-  ]
+  // providers: [
+  //   {
+  //     provide: ControlContainer,
+  //     useExisting: FormGroupDirective
+  //   }
+  // ]
 })
-export class FormFieldEmptyContainerDirective implements DoCheck {
+export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentInit {
 
   // tslint:disable-next-line:variable-name
   @Input('ngxValidationErrors') formControlRef: AbstractControl;
@@ -33,19 +35,42 @@ export class FormFieldEmptyContainerDirective implements DoCheck {
   private validationContext;
   private context = {errors: [] as string[]};
 
+
+  @ContentChildren(InputFormFieldDirective, {descendants: true}) _input2: QueryList<InputFormFieldDirective>;
+  @ContentChild(InputFormFieldDirective, {static: true}) _input3;
+
+  elementReference: ElementRef | null = null;
+
   constructor(
     private renderer: Renderer2,
     private viewContainer: ViewContainerRef,
     private template: TemplateRef<ForFieldErrorsContext>,
     // @Optional() form: FormGroupDirective,
     @Optional() @Inject(MESSAGES_PROVIDER) private messageProvider: any,
-    @Inject(VALIDATION_ERROR_CONFIG) private validationErrorsConfig: ValidationErrorsConfig) {
+    @Inject(VALIDATION_ERROR_CONFIG) private validationErrorsConfig: ValidationErrorsConfig,
+    private elementRef: ElementRef) {
+
     this.validationContext = validationErrorsConfig.defaultContext;
     const nodes = this.viewContainer.createEmbeddedView(this.template, this.context);
     this.rootEl = nodes.rootNodes[0];
+
+    // console.log('formControl:', this._formControl, 'input', this._input, 'elementRef', elementRef);
+
+    this.elementReference = elementRef;
+    console.log('viewContainer', this._input2, this._input3);
+  }
+
+  ngAfterContentInit(): void {
+    console.log('after', this._input2, this._input3);
   }
 
   ngDoCheck(): void {
+
+    // console.log('formControl:', this._formControl, 'input', this._input);
+    let inputEl = this.elementRef.nativeElement;
+    //console.log('viewContainer', this.viewContainer, this._input2);
+    console.log('viewContainer', this._input2, this._input3);
+
     const hasError = (!this.formControl.valid && this.formControl.touched) && !this.validationDisabled;
     let messages;
     if (hasError) {
@@ -107,8 +132,10 @@ export class FormFieldEmptyContainerDirective implements DoCheck {
     if (this.formControlRef['_parent'] instanceof FormGroup) {
       const form = this.formControlRef['_parent'] as FormGroup;
       const name = Object.keys(form.controls).find(k => form.controls[k] === this.formControlRef);
+
       return name;
     }
+    
     return 'field';
   }
 

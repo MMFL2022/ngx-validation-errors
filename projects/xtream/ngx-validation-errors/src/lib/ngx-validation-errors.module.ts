@@ -10,6 +10,7 @@ import {FormArrayContainerComponent} from './form-array-container.component';
 import {MapToMessagePipe} from './map-to-message.pipe';
 import {InnerMapToMessagePipe} from './inner-map-to-message.pipe';
 import {FormFieldEmptyContainerDirective} from './form-field-empty-container.directive';
+import { InputFormFieldDirective } from './input-form-field.directive';
 
 
 export const defaultConfig = {
@@ -39,7 +40,8 @@ export function configFactory(customConfig: ValidationErrorsConfig, currentConfi
     FormArrayContainerComponent,
     ValidationContextComponent,
     MapToMessagePipe,
-    InnerMapToMessagePipe
+    InnerMapToMessagePipe,
+    InputFormFieldDirective
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ export function configFactory(customConfig: ValidationErrorsConfig, currentConfi
     FormFieldContainerComponent,
     FormArrayContainerComponent,
     ValidationContextComponent,
-    FormFieldEmptyContainerDirective
+    FormFieldEmptyContainerDirective,
+    InputFormFieldDirective
   ],
   // entryComponents: [
   //   InputErrorsComponent
