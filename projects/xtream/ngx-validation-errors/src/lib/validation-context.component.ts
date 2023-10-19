@@ -23,18 +23,21 @@ export class ValidationContextComponent implements AfterContentInit {
   }
 
   ngAfterContentInit(): void {
+    console.log('directives', this.directives);
     if (this.fieldValidators) {
       this.fieldValidators.forEach(i => {
         i.setValidationContext(this.validationContext);
         i.setInnerValidation(this.innerValidationError);
       });
     }
+
     if (this.arrayValidators) {
       this.arrayValidators.forEach(i => {
         i.setValidationContext(this.validationContext);
         i.setInnerValidation(this.innerValidationError);
       });
     }
+
     if (this.directives) {
       this.directives.forEach(i => {
         i.setValidationContext(this.validationContext);
@@ -44,7 +47,6 @@ export class ValidationContextComponent implements AfterContentInit {
   }
 
   public clear(): void {
-
     if (this.fieldValidators) {
       this.fieldValidators.forEach(v => {
         v.clear();
@@ -56,11 +58,13 @@ export class ValidationContextComponent implements AfterContentInit {
         v.clear();
       });
     }
+
     if (this.directives) {
       this.directives.forEach(v => {
         v.clear();
       });
     }
+
     this.cdRef.markForCheck();
   }
 

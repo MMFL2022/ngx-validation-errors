@@ -18,15 +18,15 @@ Choose the version corresponding to your Angular version:
 
 It creates a translation key that follows the following template for each key in the form control errors object
 
-`${validationContext}.${fieldName}.ERRORS.${errorType}`
+`${validationContext}.${fieldName}.errors.${errorType}`
 
 where:
-- validationContext is the form identifier (for example _USER.REGISTRATION_ default: "GENERAL")
+- validationContext is the form identifier (for example _user.registration_ default: "general")
 - fieldName is the form control name in **SCREAMING_SNAKE_CASE** 
 - errorType is the error key in **SCREAMING_SNAKE_CASE** 
 
 the keys are then translated using a pipe enriching the message using parameters taken from the error object.
-if the key is not present in the language file the message fallbacks to `${defaultContext}.ERRORS.${errorType}` (_USER.REGISTRATION.NAME.MINLENGTH_ => _GENERAL.ERRORS.MINLENGTH_)
+if the key is not present in the language file the message fallbacks to `${defaultContext}.errors.${errorType}` (_user.registration.name.minlength_ => _general.errors.minlength_)
 
 ## Install
 
@@ -54,7 +54,7 @@ export class AppModule {
 now you can use validationContext and ngxValidationErrorsField in your template
 
 ```angular2html
-<form [formGroup]="heroForm" validationContext="USER.REGISTRATION">
+<form [formGroup]="heroForm" validationContext="user.registration">
   <div ngxValidationErrorsField>
     <label>Name</label>
     <input formControlName="name"/>
@@ -63,7 +63,7 @@ now you can use validationContext and ngxValidationErrorsField in your template
 ```
 or 
 ```angular2html
-<form [formGroup]="heroForm" validationContext="USER.REGISTRATION">
+<form [formGroup]="heroForm" validationContext="user.registration">
   <ngx-validation-errors-field>
     <label>Name</label>
     <input formControlName="name"/>
@@ -80,7 +80,7 @@ components that do non allow to autoInject errors component. The usage is a litt
 errors
 
 ```angular2html
-<form [formGroup]="heroForm" validationContext="USER.REGISTRATION">
+<form [formGroup]="heroForm" validationContext="user.registration">
     <mat-form-field *ngxValidationErrors="heroForm.get('name'); errors as errors">
       <input matInput formControlName="name" placeholder="name"/>
       <mat-error *ngIf="errors">{{errors}}</mat-error>
@@ -122,7 +122,7 @@ import {NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
   imports: [
     ...
     NgxValidationErrorsModule.forRoot({
-      defaultContext: 'CUSTOM_GENERAL',
+      defaultContext: 'custom_general',
       errorComponent: CustomErrorsComponent
     })
   ],

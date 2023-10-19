@@ -4,36 +4,45 @@
 
 <h2 style="text-align: center">xtream validation errors</h2>
 
-<form [formGroup]="heroForm" validationContext="NEW_HERO" innerValidationError="true" #firstForm>
+<!-- <form [formGroup]="testForm" validationContext="newHero" innerValidationError="true" #firstForm>
   <div style="display:flex;flex-direction: column;">
-    <mat-form-field *ngxValidationErrors="heroForm.get('name'); errors as errors">
+    <mat-form-field *ngxValidationErrors="testForm.get('name'); errors as errors">
       <input matInput formControlName="name" placeholder="name"/>
       <mat-error *ngIf="errors">{{errors}}</mat-error>
     </mat-form-field>
   </div>
 
   <div style="display:flex;flex-direction: column;">
-    <mat-form-field *ngxValidationErrors="heroForm.get('surname'); errors as errors">
+    <mat-form-field *ngxValidationErrors="testForm.get('surname'); errors as errors">
       <input matInput formControlName="surname" placeholder="surname"/>
       <mat-error *ngIf="errors">{{errors}}</mat-error>
     </mat-form-field>
   </div>
 
-  <button mat-raised-button color="primary"  [disabled]="heroForm.invalid">Submit</button>
+  <button mat-raised-button color="primary"  [disabled]="testForm.invalid">Submit</button>
   <button mat-flat-button color="secondary" (click)="clearForm()">Clear</button>
-</form>
+</form> -->
 
-<form [formGroup]="heroForm" validationContext="USER.REGISTRATION">
+<p>
+  <span>{{ 'user.registration.name2.errors.required' | translate }}</span>
+</p>
+
+<form [formGroup]="heroForm" validationContext="user.registration">
   <div style="display:flex;flex-direction: column;">
-    <mat-form-field  *ngxValidationErrors="heroForm.get('name');errors as errors">
-      <input matInput formControlName="name" placeholder="name" ngxValidationInput/>
+    <!-- <mat-form-field  *ngxValidationErrors="heroForm.get('name2');errors as errors"> -->
+    <!-- <mat-form-field  *ngxValidationErrors="errors as errors"> -->
+    <mat-form-field *ngxValidationErrors="errors as errors">
+      <input matInput id="name2" formControlName="name2" placeholder="name2"/>
+      <!-- <mat-error *ngFor="let error of errors">{{error | translate}}</mat-error> -->
       <mat-error *ngIf="errors">{{errors}}</mat-error>
     </mat-form-field>
   </div>
 
   <div style="display:flex;flex-direction: column;">
-    <mat-form-field  *ngxValidationErrors="heroForm.get('surname');errors as errors">
-      <input matInput ngxValidationInput formControlName="surname" placeholder="surname"/>
+    <!-- <mat-form-field  *ngxValidationErrors="heroForm.get('surname2');errors as errors"> -->
+    <mat-form-field  *ngxValidationErrors="errors as errors">
+      <input matInput id="surname2" formControlName="surname2" placeholder="surname2"/>
+      <!-- <mat-error *ngFor="let error of errors">{{error | translate}}</mat-error> -->
       <mat-error *ngIf="errors">{{errors}}</mat-error>
     </mat-form-field>
   </div>

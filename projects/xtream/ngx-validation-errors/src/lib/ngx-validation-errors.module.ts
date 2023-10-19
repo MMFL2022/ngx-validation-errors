@@ -10,11 +10,10 @@ import {FormArrayContainerComponent} from './form-array-container.component';
 import {MapToMessagePipe} from './map-to-message.pipe';
 import {InnerMapToMessagePipe} from './inner-map-to-message.pipe';
 import {FormFieldEmptyContainerDirective} from './form-field-empty-container.directive';
-import { InputFormFieldDirective } from './input-form-field.directive';
 
 
 export const defaultConfig = {
-  defaultContext: 'GENERAL',
+  defaultContext: 'general',
   errorComponent: InputErrorsComponent as any
 } as ValidationErrorsConfig;
 
@@ -40,8 +39,7 @@ export function configFactory(customConfig: ValidationErrorsConfig, currentConfi
     FormArrayContainerComponent,
     ValidationContextComponent,
     MapToMessagePipe,
-    InnerMapToMessagePipe,
-    InputFormFieldDirective
+    InnerMapToMessagePipe
   ],
   imports: [
     CommonModule,
@@ -54,7 +52,7 @@ export function configFactory(customConfig: ValidationErrorsConfig, currentConfi
     FormArrayContainerComponent,
     ValidationContextComponent,
     FormFieldEmptyContainerDirective,
-    InputFormFieldDirective
+    MapToMessagePipe
   ],
   // entryComponents: [
   //   InputErrorsComponent
@@ -73,7 +71,6 @@ export class NgxValidationErrorsModule {
           provide: FOR_ROOT_OPTIONS_TOKEN,
           useValue: config
         },
-        MapToMessagePipe,
         {
           provide: VALIDATION_ERROR_CONFIG,
           useFactory: configFactory,

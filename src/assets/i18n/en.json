@@ -1,28 +1,15 @@
 {
-  "HOME": {
-    "TITLE": "Validation erorrs example"
+  "home": {
+    "title": "Validation erorrs example"
   },
-  "GENERAL": {
-    "ERRORS": {
-      "MINLENGTH": "The field is too short. At least {{requiredLength}} are required.",
-      "MAXLENGTH": "The field is too long. Max {{requiredLength}}",
-      "REQUIRED" : "The field is required"
-    }
-  },
-  "NEW_HERO": {
-    "NAME": {
-      "ERRORS": {
-        "MINLENGTH" : "The hero name must be at least {{requiredLength}} characters",
-        "MAXLENGTH": "The field is too long. You need to insert at least {{requiredLength}}",
-        "REQUIRED" : "The hero name is required"
-      }
-    }
-  },
-  "USER": {
-    "REGISTRATION": {
-      "ERRORS": {
-        "MINLENGTH": "Name must be at least {{minlength.requiredLength}}",
-        "MAXLENGTH": "The field is too long. You need to insert at least {{requiredLength}}"
+  "user": {
+    "registration": {
+      "name2": {
+        "errors": {
+          "minlength" : "Name must be at least {{requiredLength}} characters",
+          "maxlength": "The Name field is too long. You need to insert at least {{requiredLength}}",
+          "required" : "Name is required"
+        }
       }
     }
   }

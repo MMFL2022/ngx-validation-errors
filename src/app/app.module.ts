@@ -28,10 +28,10 @@ export function translatePipeFactoryCreator(translateService: TranslateService) 
   return (detector: ChangeDetectorRef) => new TranslatePipe(translateService, detector);
 }
 
-
 export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesProviderService) {
   return (detector: ChangeDetectorRef) => new SimpleErrorPipe(messageProvider, detector);
 }
+
 
 @NgModule({
   declarations: [
@@ -62,15 +62,23 @@ export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesPr
     BrowserAnimationsModule,
   ],
   providers: [
-
+    // {
+    //   provide: MESSAGES_PIPE_FACTORY_TOKEN,
+    //   useFactory: translatePipeFactoryCreator,
+    //   deps: [TranslateService]
+    // },
+    // {
+    //   provide: MESSAGES_PROVIDER,
+    //   useExisting: SimpleMessagesProviderService
+    // }
     {
       provide: MESSAGES_PIPE_FACTORY_TOKEN,
-      useFactory: translatePipeFactoryCreator,
+      useFactory: TranslatePipe,
       deps: [TranslateService]
     },
     {
       provide: MESSAGES_PROVIDER,
-      useExisting: SimpleMessagesProviderService
+      useExisting: TranslateService
     }
   ],
   //entryComponents: [CustomErrorsComponent],

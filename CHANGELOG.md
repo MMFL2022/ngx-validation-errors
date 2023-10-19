@@ -51,7 +51,7 @@ The 1.0.0 version is compatible with angular 8.
 The components have been renamed according to the angular conventions, now they starts with the library prefix.
 Update this
 ```angular2html
-<form [formGroup]="heroForm" validationContext="USER.REGISTRATION">
+<form [formGroup]="heroForm" validationContext="user.registration">
   <div formFieldContainer>
     <label>Name</label>
     <input formControlName="name"/>
@@ -61,7 +61,7 @@ Update this
 changing the name to ngxValidationErrorsField
 
 ```angular2html
-<form [formGroup]="heroForm" validationContext="USER.REGISTRATION">
+<form [formGroup]="heroForm" validationContext="user.registration">
   <div ngxValidationErrorsField>
     <label>Name</label>
     <input formControlName="name"/>

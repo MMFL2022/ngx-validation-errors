@@ -1,4 +1,4 @@
-export const ERRORS = {
-  'GENERAL.ERRORS.MINLENGTH': 'IL campo deve essere almeno di x caratteri',
-  'GENERAL.ERRORS.REQUIRED': 'Campo obblogatorio',
+export const errors = {
+  'general.errors.minlength': 'IL campo deve essere almeno di x caratteri',
+  'general.errors.required': 'Campo obblogatorio',
 };

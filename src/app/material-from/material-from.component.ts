@@ -12,12 +12,18 @@ import { ValidationContextComponent } from 'projects/xtream/ngx-validation-error
 export class MaterialFromComponent implements OnInit {
 
   heroForm: FormGroup;
+  testForm: FormGroup;
   @ViewChild('firstForm', {read: ValidationContextComponent, static: true}) validationContext: ValidationContextComponent;
 
   constructor(private translateService: TranslateService) {
+    // this.testForm = new FormGroup({
+    //   name: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
+    //   surname: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)])
+    // });
+
     this.heroForm = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.minLength(4)]),
-      surname: new FormControl(null, [Validators.required, Validators.maxLength(1000)])
+      name2: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
+      surname2: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)])
     });
   }
 

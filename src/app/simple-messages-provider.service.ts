@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ERRORS} from './errors-mapping';
+import {errors} from './errors-mapping';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,8 @@ export class SimpleMessagesProviderService {
   }
 
   public instant(key: string) {
-    if (key in ERRORS) {
-      return ERRORS[key];
+    if (key in errors) {
+      return errors[key];
     } else {
       return key;
     }

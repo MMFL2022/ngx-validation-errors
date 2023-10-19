@@ -15,7 +15,6 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {VALIDATION_ERROR_CONFIG, ValidationErrorsConfig} from './error-validation-config';
-import {toScreamingSnakeCase} from './utils';
 import {AbstractControl} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {toChangeObservable} from './toChangeObservable';
@@ -92,10 +91,10 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
     if (hasError && this.el && this.el.nativeElement) {
       this.messages = Object.keys(this.formControl.errors || {}).map(error => {
         const fieldName = this.formControlName;
-        const errorKey = `${toScreamingSnakeCase(fieldName + '')}.ERRORS.${toScreamingSnakeCase(error)}`;
+        const errorKey = `${fieldName + ''}.errors.${error}`;
         if (this.messageProvider &&
           this.messageProvider.instant(`${this.validationContext}.${errorKey}`) === `${this.validationContext}.${errorKey}`) {
-          return `${this.validationErrorsConfig.defaultContext}.ERRORS.${toScreamingSnakeCase(error)}`;
+          return `${this.validationErrorsConfig.defaultContext}.errors.${error}`;
         } else {
           return `${this.validationContext}.${errorKey}`;
         }

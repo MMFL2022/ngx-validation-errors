@@ -6,7 +6,7 @@
   <button (click)="chooseLanguage('en')" class="btn btn-primary mr-2">en</button>
   <button (click)="chooseLanguage('it')" class="btn btn-secondary">it</button>
 </div>
-<form [formGroup]="heroForm" [appFormSubmit]="heroForm" #firstForm validationContext="NEW_HERO" innerValidationError="true">
+<form [formGroup]="heroForm" [appFormSubmit]="heroForm" #firstForm validationContext="newHero" innerValidationError="true">
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Name</label>
     <input class="form-control" formControlName="name"/>
@@ -30,14 +30,14 @@
 </form>
 
 
-<form [formGroup]="heroForm" validationContext="USER.REGISTRATION">
+<form [formGroup]="heroForm" validationContext="user.registration">
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Name</label>
-    <input class="form-control" formControlName="name"/>
+    <input class="form-control" formControlName="name2"/>
   </div>
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Surmane</label>
-    <input class="form-control" formControlName="surname"/>
+    <input class="form-control" formControlName="surname2"/>
   </div>
   <button class="btn btn-primary" [disabled]="heroForm.invalid">Submit</button>
 

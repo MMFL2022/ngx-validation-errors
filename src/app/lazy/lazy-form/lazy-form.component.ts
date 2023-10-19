@@ -39,9 +39,11 @@ export class LazyFormComponent implements OnInit {
 
   constructor(private translateService: TranslateService) {
     this.heroForm = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.minLength(4)]),
-      surname: new FormControl({value: null, disabled: true}, [Validators.required, Validators.maxLength(1000)]),
-      checkBoxes: new FormArray(this.boxesInfo.map(a => new FormControl()), [minCheckSelected(1)])
+      name: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
+      surname: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)]),
+      checkBoxes: new FormArray(this.boxesInfo.map(a => new FormControl()), [minCheckSelected(1)]),
+      name2: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
+      surname2: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)])
     });
 
     this.heroForm.valueChanges.pipe(
@@ -49,9 +51,9 @@ export class LazyFormComponent implements OnInit {
       tap(v => {
         console.debug('v', v);
         if (v.name) {
-          this.heroForm.controls['surname'].enable({emitEvent: false});
+          this.heroForm.controls['surname2'].enable({emitEvent: false});
         } else {
-          this.heroForm.controls['surname'].disable({emitEvent: false});
+          this.heroForm.controls['surname2'].disable({emitEvent: false});
         }
       })
     ).subscribe()
