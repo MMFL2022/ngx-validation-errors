@@ -44,7 +44,27 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "development": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -72,6 +92,9 @@
           "configurations": {
             "production": {
               "browserTarget": "ngx-validation-errors:build:production"
+            },
+            "development": {
+              "browserTarget": "ngx-validation-errors:build:development"
             }
           }
         },
@@ -140,6 +163,9 @@
           "configurations": {
             "production": {
               "tsConfig": "projects/xtream/ngx-validation-errors/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/xtream/ngx-validation-errors/tsconfig.lib.json"
             }
           }
         },

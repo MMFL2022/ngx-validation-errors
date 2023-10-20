@@ -6,7 +6,7 @@ import {
   Optional,
   Renderer2
 } from '@angular/core';
-import {FormArrayName} from '@angular/forms';
+import {FormArray, FormArrayName} from '@angular/forms';
 import {FormValidationContainer} from './form-validation-container';
 import {MESSAGES_PROVIDER} from './injection-tokens';
 import {VALIDATION_ERROR_CONFIG, ValidationErrorsConfig} from './error-validation-config';
@@ -21,8 +21,8 @@ import {Observable} from 'rxjs';
 })
 export class FormArrayContainerComponent extends FormValidationContainer {
 
-  @ContentChild(FormArrayName, {static: true}) _formControl: FormArrayName;
-  @ContentChild(FormArrayName, {read: ElementRef, static: true}) _el: ElementRef;
+  @ContentChild(FormArrayName, {static: true}) _formControl?: FormArrayName;
+  @ContentChild(FormArrayName, {read: ElementRef, static: true}) _el?: ElementRef;
 
   constructor(
     private _renderer: Renderer2,
@@ -32,18 +32,30 @@ export class FormArrayContainerComponent extends FormValidationContainer {
   }
 
   get formControl() {
-    return this._formControl.control;
+    if (this._formControl != undefined) {
+      return this._formControl.control;
+    }
+
+    return undefined;
   }
 
-  get formControlName(): string | number {
-    return this._formControl.name;
+  get formControlName(): string | number | null {
+    if (this._formControl != undefined) {
+      return this._formControl.name!;
+    }
+
+    return null;
   }
 
-  get statusChanges(): Observable<any> {
-    return this._formControl.control.statusChanges;
+  get statusChanges(): Observable<any> | undefined {
+    if (this._formControl != undefined) {
+      return this._formControl.control.statusChanges;
+    }
+
+    return undefined;
   }
 
-  get el(): ElementRef<any> {
+  get el(): ElementRef<any> | undefined {
     return this._el;
   }
 }

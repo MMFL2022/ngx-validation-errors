@@ -21,8 +21,8 @@ import {Observable} from 'rxjs';
 })
 export class FormFieldContainerComponent extends FormValidationContainer {
 
-  @ContentChild(FormControlName, {static: true}) _formControl: FormControlName;
-  @ContentChild(FormControlName, {read: ElementRef, static: true}) _input: ElementRef;
+  @ContentChild(FormControlName, {static: true}) _formControl?: FormControlName;
+  @ContentChild(FormControlName, {read: ElementRef, static: true}) _input?: ElementRef;
 
   constructor(
     private _renderer: Renderer2,
@@ -32,18 +32,30 @@ export class FormFieldContainerComponent extends FormValidationContainer {
   }
 
   get formControl() {
-    return this._formControl.control;
+    if (this._formControl != undefined) {
+      return this._formControl.control;
+    }
+
+    return undefined;
   }
 
-  get formControlName(): string | number {
-    return this._formControl.name;
+  get formControlName(): string | number | null {
+    if (this._formControl != undefined) {
+      return this._formControl.name!;
+    }
+
+    return null;
   }
 
-  get statusChanges(): Observable<any> {
-    return this._formControl.control.statusChanges;
+  get statusChanges(): Observable<any> | undefined {
+    if (this._formControl != undefined) {
+      return this._formControl.control.statusChanges;
+    }
+
+    return undefined;
   }
 
-  get el(): ElementRef<any> {
+  get el(): ElementRef<any> | undefined {
     return this._input;
   }
 }

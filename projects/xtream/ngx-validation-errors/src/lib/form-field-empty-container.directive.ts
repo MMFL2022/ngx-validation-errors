@@ -19,15 +19,15 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
   @Input() messageParams: {} = {};
   @Input() validationDisabled = false;
 
-  public messages: string[];
+  public messages: string[] = [];
 
   private rootEl: any;
-  private formControlRef: AbstractControl;
-  private inputName = '';
+  private formControlRef?: AbstractControl;
+  private inputName?: string;
   private validationContext;
   private context = {
-    errors: [] as string[],
-    params: {}
+    errors: [] as string[] | undefined,
+    params: {} as object | undefined
   };
 
   constructor(
@@ -50,9 +50,10 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
       const child = nodes[i];
       
       if (child.tagName == 'INPUT') {
-        this.inputName = child.getAttribute('formControlName');
-
-        if (this.inputName == undefined || this.inputName == '') {
+        let childName = child.getAttribute('formControlName')
+        if (childName != undefined) {
+          this.inputName = childName;
+        } else {
           this.inputName = child.id;
         }
 
@@ -66,14 +67,14 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
   }
 
   ngAfterContentInit(): void {
-    if (this.formGroup.control != null && this.inputName != '') {
+    if (this.formGroup.control != null && this.inputName != undefined) {
       this.formControlRef = this.formGroup.control.controls[this.inputName];
     }
   }
 
   ngDoCheck(): void {
-    if (this.formControlRef != undefined) {
-      let messages;
+    if (this.formControl != undefined) {
+      let messages: string[] = [];
       const hasError = (!this.formControl.valid && this.formControl.touched) && !this.validationDisabled;
 
       if (hasError) {
@@ -127,11 +128,14 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
   }
 
   public clear() {
-    this.formControl.reset();
-    this.formControl.setErrors(null);
+    if (this.formControl != undefined) {
+      this.formControl.reset();
+      this.formControl.setErrors(null);
+    }
+    
     this.messages = [];
     this.context.errors = undefined;
-    this.context.params = undefined;
+    this.context.params = undefined;    
   }
 
   get formControl() {
@@ -139,11 +143,15 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
   }
 
   get formControlName(): string {
-    if (this.formControlRef['_parent'] instanceof FormGroup) {
-      const form = this.formControlRef['_parent'] as FormGroup;
-      const name = Object.keys(form.controls).find(k => form.controls[k] === this.formControlRef);
-
-      return name;
+    if (this.formControlRef != undefined) {
+      if (this.formControlRef['_parent'] instanceof FormGroup) {
+        const form = this.formControlRef['_parent'] as FormGroup;
+        const name = Object.keys(form.controls).find(k => form.controls[k] === this.formControlRef);
+  
+        if (name != undefined) {
+          return name;
+        }
+      }
     }
     
     return 'field';

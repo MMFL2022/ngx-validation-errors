@@ -13,8 +13,8 @@ export class MainFromComponent implements OnInit {
 
   heroForm: FormGroup;
   anotherForm: FormGroup;
-  @ViewChild('firstForm', {read: ValidationContextComponent, static: true}) validationContext: ValidationContextComponent;
-  @ViewChild('anotherForm', {read: ValidationContextComponent, static: true}) anotherValidationContext: ValidationContextComponent;
+  @ViewChild('firstForm', {read: ValidationContextComponent, static: true}) validationContext?: ValidationContextComponent;
+  @ViewChild('anotherForm', {read: ValidationContextComponent, static: true}) anotherValidationContext?: ValidationContextComponent;
 
   constructor(private translateService: TranslateService) {
     this.heroForm = new FormGroup({
@@ -36,7 +36,12 @@ export class MainFromComponent implements OnInit {
   }
 
   reset(): void {
-    this.validationContext.clear();
-    this.anotherValidationContext.clear();
+    if (this.validationContext != undefined) {
+      this.validationContext.clear();
+    }
+
+    if (this.anotherValidationContext != undefined) {
+      this.anotherValidationContext.clear();
+    }
   }
 }

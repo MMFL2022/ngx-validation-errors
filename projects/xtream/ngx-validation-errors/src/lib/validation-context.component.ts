@@ -9,53 +9,65 @@ import {FormFieldEmptyContainerDirective} from './form-field-empty-container.dir
 })
 export class ValidationContextComponent implements AfterContentInit {
 
-  @Input() validationContext: string;
-  @Input() innerValidationError: boolean;
+  @Input() validationContext?: string;
+  @Input() innerValidationError: boolean = false;
 
-  @ContentChildren(FormFieldContainerComponent, {descendants: true}) fieldValidators: QueryList<FormFieldContainerComponent>;
-  @ContentChildren(FormArrayContainerComponent, {descendants: true}) arrayValidators: QueryList<FormArrayContainerComponent>;
-  @ContentChildren(FormFieldEmptyContainerDirective, {descendants: true}) directives: QueryList<FormFieldEmptyContainerDirective>;
+  @ContentChildren(FormFieldContainerComponent, {descendants: true}) fieldValidators?: QueryList<FormFieldContainerComponent>;
+  @ContentChildren(FormArrayContainerComponent, {descendants: true}) arrayValidators?: QueryList<FormArrayContainerComponent>;
+  @ContentChildren(FormFieldEmptyContainerDirective, {descendants: true}) directives?: QueryList<FormFieldEmptyContainerDirective>;
 
   constructor(private cdRef: ChangeDetectorRef) {
   }
 
   ngAfterContentInit(): void {
-    if (this.fieldValidators) {
+    if (this.validationContext != undefined) {
+
+    }
+    if (this.fieldValidators != undefined) {
       this.fieldValidators.forEach(i => {
-        i.setValidationContext(this.validationContext);
+        if (this.validationContext != undefined) {
+          i.setValidationContext(this.validationContext);
+        }
+
         i.setInnerValidation(this.innerValidationError);
       });
     }
 
-    if (this.arrayValidators) {
+    if (this.arrayValidators != undefined) {
       this.arrayValidators.forEach(i => {
-        i.setValidationContext(this.validationContext);
+        if (this.validationContext != undefined) {
+          i.setValidationContext(this.validationContext);
+        }
+
         i.setInnerValidation(this.innerValidationError);
       });
     }
 
-    if (this.directives) {
+    if (this.directives != undefined) {
       this.directives.forEach(i => {
-        i.setValidationContext(this.validationContext);
+        if (this.validationContext != undefined) {
+          i.setValidationContext(this.validationContext);
+        }
+        
         i.setInnerValidation(this.innerValidationError);
       });
     }
   }
 
   public clear(): void {
-    if (this.fieldValidators) {
+    if (this.fieldValidators != undefined) {
       this.fieldValidators.forEach(v => {
         v.clear();
       });
     }
 
-    if (this.arrayValidators) {
+    if (this.arrayValidators != undefined) {
       this.arrayValidators.forEach(v => {
         v.clear();
       });
     }
 
-    if (this.directives) {
+    if (this.directives != undefined) {
       this.directives.forEach(v => {
         v.clear();
       });

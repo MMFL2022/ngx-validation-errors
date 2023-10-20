@@ -23,10 +23,7 @@ function minCheckSelected(size: number) {
 })
 export class LazyFormComponent implements OnInit {
 
-  @ViewChild('firstForm', {
-    read: ValidationContextComponent,
-    static: true
-  }) validationContext: ValidationContextComponent;
+  @ViewChild('firstForm', { read: ValidationContextComponent, static: true }) validationContext?: ValidationContextComponent;
 
   heroForm: FormGroup;
 
@@ -66,8 +63,10 @@ export class LazyFormComponent implements OnInit {
 
   clearForm() {
     console.debug('this.validationContext', this.validationContext);
-    this.validationContext.clear();
 
+    if (this.validationContext != undefined) {
+      this.validationContext.clear();
+    }
   }
 
   chooseLanguage(lan: string) {

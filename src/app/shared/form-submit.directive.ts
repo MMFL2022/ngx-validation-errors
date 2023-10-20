@@ -7,14 +7,16 @@ import {FormArray, FormGroup} from '@angular/forms';
 export class FormSubmitDirective {
 
   @Input()
-  public appFormSubmit: FormGroup;
+  public appFormSubmit?: FormGroup;
 
   constructor() {
   }
 
   @HostListener('submit', ['$event'])
   onSubmit(event: Event) {
-    this.markControlsDirty(this.appFormSubmit);
+    if (this.appFormSubmit != undefined) {
+      this.markControlsDirty(this.appFormSubmit);
+    }
   }
 
   private markControlsDirty(group: FormGroup | FormArray): void {

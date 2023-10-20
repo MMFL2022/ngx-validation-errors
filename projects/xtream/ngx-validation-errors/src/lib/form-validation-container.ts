@@ -26,21 +26,21 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
   @Input() customErrorMessages: {} = {};
   @Input() messageParams: {} = {};
   @Input() validationDisabled = false;
-  @Input() innerValidationError: boolean;
+  @Input() innerValidationError: boolean = false;
 
-  @ViewChild('errorsContainer', {read: ViewContainerRef, static: true}) errorsContainer: ViewContainerRef;
+  @ViewChild('errorsContainer', {read: ViewContainerRef, static: true}) errorsContainer?: ViewContainerRef;
 
-  public messages: string[];
+  public messages: string[] = [];
 
   @HostBinding('class.has-error')
-  public hasErrors: boolean;
+  public hasErrors: boolean = false;
 
   @HostBinding('class.has-success')
-  public hasSuccess: boolean;
+  public hasSuccess: boolean = false;
 
   private validationContext;
-  private componentRef: ComponentRef<any>;
-  private subscription: Subscription;
+  private componentRef?: ComponentRef<any>;
+  private subscription?: Subscription;
 
   constructor(
     private renderer: Renderer2,
@@ -52,11 +52,13 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
   ngAfterContentInit(): void {
     this.addErrorComponent();
 
-    this.subscription = toChangeObservable(this.formControl).subscribe(value => {
-      this.checkErrors();
-      this.checkSuccess();
-      this.updateErrorComponent();
-    });
+    if (this.formControl != undefined) {
+      this.subscription = toChangeObservable(this.formControl).subscribe(value => {
+        this.checkErrors();
+        this.checkSuccess();
+        this.updateErrorComponent();
+      });
+    }
   }
 
   ngOnDestroy(): void {
@@ -81,58 +83,62 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
   }
 
   checkErrors() {
-    const hasError = (!this.formControl.valid && this.formControl.dirty && this.formControl.touched) && !this.validationDisabled;
-
-    if (hasError && this.el && this.el.nativeElement) {
-      this.messages = Object.keys(this.formControl.errors || {}).map(error => {
-        const fieldName = this.formControlName;
-        const errorKey = `${fieldName}.errors.${error}`;
-        const validationKey = `${this.validationContext}.${errorKey}`;
-
-        if (this.messageProvider && this.messageProvider.instant(validationKey) === validationKey) {
-          let errorMessage = `${this.validationErrorsConfig.defaultContext}.errors.${error}`;
-          return errorMessage
-          ;
-        } else {
-          return validationKey;
+    if (this.formControl != undefined) {
+      const hasError = (!this.formControl.valid && this.formControl.dirty && this.formControl.touched) && !this.validationDisabled;
+  
+      if (hasError && this.el && this.el.nativeElement) {
+        this.messages = Object.keys(this.formControl.errors || {}).map(error => {
+          const fieldName = this.formControlName;
+          const errorKey = `${fieldName}.errors.${error}`;
+          const validationKey = `${this.validationContext}.${errorKey}`;
+  
+          if (this.messageProvider && this.messageProvider.instant(validationKey) === validationKey) {
+            let errorMessage = `${this.validationErrorsConfig.defaultContext}.errors.${error}`;
+            return errorMessage
+            ;
+          } else {
+            return validationKey;
+          }
+        });
+  
+        const params = Object.values(this.formControl.errors || {}).reduce((a, b) => {
+          a = {...a, ...b};
+          return a;
+        }, {});
+  
+        this.messageParams = this.messageParams ? {...this.messageParams, ...params} : params;
+  
+        if (this.messages && this.messages.length > 0) {
+          this.messages = [this.messages[0]];
         }
-      });
-
-      const params = Object.values(this.formControl.errors || {}).reduce((a, b) => {
-        a = {...a, ...b};
-        return a;
-      }, {});
-
-      this.messageParams = this.messageParams ? {...this.messageParams, ...params} : params;
-
-      if (this.messages && this.messages.length > 0) {
-        this.messages = [this.messages[0]];
+  
+        try {
+          this.renderer.removeClass(this.el.nativeElement, 'is-valid');
+        } catch (e) {
+        }
+  
+        this.renderer.addClass(this.el.nativeElement, 'is-invalid');
       }
-
-      try {
-        this.renderer.removeClass(this.el.nativeElement, 'is-valid');
-      } catch (e) {
-      }
-
-      this.renderer.addClass(this.el.nativeElement, 'is-invalid');
+  
+      this.hasErrors = hasError;
     }
-
-    this.hasErrors = hasError;
   }
 
   checkSuccess(): void {
-    const hasSuccess = (this.formControl.valid && this.formControl.dirty && this.formControl.touched) && !this.validationDisabled;
-
-    if (hasSuccess && this.el && this.el.nativeElement) {
-      this.messages = [];
-
-      try {
-        this.renderer.removeClass(this.el.nativeElement, 'is-invalid');
-      } catch (e) {
+    if (this.formControl != undefined) {
+      const hasSuccess = (this.formControl.valid && this.formControl.dirty && this.formControl.touched) && !this.validationDisabled;
+  
+      if (hasSuccess && this.el && this.el.nativeElement) {
+        this.messages = [];
+  
+        try {
+          this.renderer.removeClass(this.el.nativeElement, 'is-invalid');
+        } catch (e) {
+        }
       }
+  
+      this.hasSuccess = hasSuccess;
     }
-
-    this.hasSuccess = hasSuccess;
   }
 
   public setValidationContext(context: string): void {
@@ -143,19 +149,25 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
     this.innerValidationError = innerValidation;
   }
 
-  abstract get formControl(): AbstractControl;
+  abstract get formControl(): AbstractControl | undefined;
 
-  abstract get statusChanges(): Observable<any>;
+  abstract get statusChanges(): Observable<any> | undefined;
 
-  abstract get formControlName(): string | number;
+  abstract get formControlName(): string | number | null;
 
-  abstract get el(): ElementRef;
+  abstract get el(): ElementRef | undefined;
 
   public clear() {
-    this.formControl.reset();
-    this.formControl.setErrors(null);
-    this.renderer.removeClass(this.el.nativeElement, 'is-valid');
-    this.renderer.removeClass(this.el.nativeElement, 'is-invalid');
+    if (this.formControl != undefined) {
+      this.formControl.reset();
+      this.formControl.setErrors(null);
+    }
+
+    if (this.el != undefined) {
+      this.renderer.removeClass(this.el.nativeElement, 'is-valid');
+      this.renderer.removeClass(this.el.nativeElement, 'is-invalid');
+    }
+
     this.messages = [];
   }
 }

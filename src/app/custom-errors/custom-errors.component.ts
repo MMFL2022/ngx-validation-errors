@@ -6,17 +6,18 @@ import {Component, HostBinding, Input, OnInit, TemplateRef, ViewChild, ViewConta
   styleUrls: ['./custom-errors.component.scss']
 })
 export class CustomErrorsComponent implements OnInit {
-
   @Input() public messages: string[] = [];
   @Input() public params: {[key: string]: any} = {};
-  @Input() @HostBinding('class.is-inner') public innerValidationError: boolean;
+  @Input() @HostBinding('class.is-inner') public innerValidationError: boolean = false;
 
-  @ViewChild('impl', {static: true}) template: TemplateRef<any>;
+  @ViewChild('impl', {static: true}) template: TemplateRef<any> | undefined;
 
   constructor(private vcr: ViewContainerRef) {
   }
 
   ngOnInit() {
-    this.vcr.createEmbeddedView(this.template);
+    if (this.template != undefined) {
+      this.vcr.createEmbeddedView(this.template);
+    }
   }
 }

@@ -11,7 +11,7 @@ import { ValidationContextComponent } from 'projects/xtream/ngx-validation-error
 })
 export class MaterialFromComponent implements OnInit {
   
-  @ViewChild('firstForm', {read: ValidationContextComponent, static: true}) validationContext: ValidationContextComponent;
+  @ViewChild('firstForm', {read: ValidationContextComponent, static: true}) validationContext?: ValidationContextComponent;
 
   heroForm: FormGroup;
   testForm: FormGroup;
@@ -37,6 +37,8 @@ export class MaterialFromComponent implements OnInit {
   clearForm() {
     console.debug('this.validationContext', this.validationContext);
     
-    this.validationContext.clear();
+    if (this.validationContext != undefined) {
+      this.validationContext.clear();
+    }
   }
 }

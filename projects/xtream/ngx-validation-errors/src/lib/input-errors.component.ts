@@ -18,9 +18,9 @@ export class InputErrorsComponent implements ErrorsComponent {
 
   @Input() public messages: string[] = [];
   @Input() public params: { [key: string]: any } = {};
-  @Input() @HostBinding('class.is-inner') public innerValidationError: boolean;
+  @Input() @HostBinding('class.is-inner') public innerValidationError: boolean = false;
 
   @Input()
-  private control: AbstractControlDirective | AbstractControl;
+  private control?: AbstractControlDirective | AbstractControl;
 
 }
