@@ -33,3 +33,19 @@
 
   <button class="btn btn-primary" [disabled]="heroForm.invalid">Submit</button>
 </form>
+
+<form [formGroup]="anotherForm" validationContext="anotherForm">
+  <div *ngxValidationErrors="let errorMessages = errors; let errorParams = params" class="input-wrapper form-group">
+    <label>Another Name</label>
+    <input class="form-control" formControlName="anotherName" data-form-type="other"/>
+    <mat-error *ngFor="let errorMessage of errorMessages">{{ errorMessage | translate: errorParams }}</mat-error>
+  </div>
+
+  <div *ngxValidationErrors="let errorMessages = errors; let errorParams = params" class="input-wrapper form-group">
+    <label>Another Surmane</label>
+    <input class="form-control" formControlName="anotherSurname" data-form-type="other"/>
+    <mat-error *ngFor="let errorMessage of errorMessages">{{ errorMessage | translate: errorParams }}</mat-error>
+  </div>
+
+  <button class="btn btn-primary" [disabled]="anotherForm.invalid">Submit</button>
+</form>

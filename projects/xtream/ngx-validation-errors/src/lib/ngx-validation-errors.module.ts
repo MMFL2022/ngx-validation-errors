@@ -64,7 +64,8 @@ export class NgxValidationErrorsModule {
       ngModule: NgxValidationErrorsModule,
       providers: [
         {
-          provide: ValidationErrorsConfigObject, useValue: defaultConfig as ValidationErrorsConfig
+          provide: ValidationErrorsConfigObject,
+          useValue: defaultConfig as ValidationErrorsConfig
         },
         {
           provide: FOR_ROOT_OPTIONS_TOKEN,

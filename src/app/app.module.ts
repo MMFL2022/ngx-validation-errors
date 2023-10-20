@@ -49,7 +49,10 @@ export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesPr
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxValidationErrorsModule.forRoot(),
+    NgxValidationErrorsModule.forRoot({
+      defaultContext: 'general',
+      // errorComponent: CustomErrorsComponent
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -73,7 +76,7 @@ export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesPr
     // }
     {
       provide: MESSAGE_PIPE_FACTORY_TOKEN,
-      useFactory: TranslatePipe,
+      useFactory: translatePipeFactoryCreator,
       deps: [TranslateService]
     },
     {

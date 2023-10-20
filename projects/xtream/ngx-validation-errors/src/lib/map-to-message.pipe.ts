@@ -12,7 +12,7 @@ export class MapToMessagePipe implements PipeTransform {
 
   constructor(
     @Optional() cdRef: ChangeDetectorRef,
-    @Optional() @Inject(MESSAGE_PIPE_FACTORY_TOKEN) private  pipeFactory: any) {
+    @Optional() @Inject(MESSAGE_PIPE_FACTORY_TOKEN) private pipeFactory: any) {
 
     if (pipeFactory) {
       try {
