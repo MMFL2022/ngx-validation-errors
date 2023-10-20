@@ -7,14 +7,14 @@
 <form [formGroup]="testForm" validationContext="newHero" innerValidationError="true" #firstForm>
   <div style="display:flex;flex-direction: column;">
     <mat-form-field *ngxValidationErrors="let errorMessages = errors">
-      <input matInput formControlName="name" placeholder="name"/>
+      <input matInput formControlName="name" placeholder="name" data-form-type="other"/>
       <mat-error *ngIf="errorMessages">{{errorMessages}}</mat-error>
     </mat-form-field>
   </div>
 
   <div style="display:flex;flex-direction: column;">
     <mat-form-field *ngxValidationErrors="let errorMessages = errors">
-      <input matInput formControlName="surname" placeholder="surname"/>
+      <input matInput formControlName="surname" placeholder="surname" data-form-type="other"/>
       <mat-error *ngIf="errorMessages">{{errorMessages}}</mat-error>
     </mat-form-field>
   </div>
@@ -26,21 +26,21 @@
 <form [formGroup]="heroForm" validationContext="user.registration">
   <div style="display:flex;flex-direction: column;">
     <mat-form-field *ngxValidationErrors="let errorMessages = errors">
-      <input matInput formControlName="name2" placeholder="name2"/>
+      <input matInput formControlName="name2" placeholder="name2" data-form-type="other"/>
       <mat-error *ngIf="errorMessages">{{errorMessages}}</mat-error>
     </mat-form-field>
   </div>
 
   <div style="display:flex;flex-direction: column;">
     <mat-form-field *ngxValidationErrors="let errorMessages = errors">
-      <input matInput formControlName="middleName2" placeholder="middleName2"/>
+      <input matInput formControlName="middleName2" placeholder="middleName2" data-form-type="other"/>
       <mat-error *ngIf="errorMessages">{{errorMessages}}</mat-error>
     </mat-form-field>
   </div>
 
   <div style="display:flex;flex-direction: column;">
     <mat-form-field  *ngxValidationErrors="let errorMessages = errors">
-      <input matInput formControlName="surname2" placeholder="surname2"/>
+      <input matInput formControlName="surname2" placeholder="surname2" data-form-type="other"/>
       <mat-error *ngIf="errorMessages">{{errorMessages}}</mat-error>
     </mat-form-field>
   </div>

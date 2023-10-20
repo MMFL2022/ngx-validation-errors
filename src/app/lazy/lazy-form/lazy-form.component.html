@@ -12,12 +12,12 @@
 <form [formGroup]="heroForm" [appFormSubmit]="heroForm" #firstForm validationContext="newHero" innerValidationError="true">
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Name</label>
-    <input class="form-control" formControlName="name"/>
+    <input class="form-control" formControlName="name" data-form-type="other"/>
   </div>
 
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Surmane</label>
-    <input class="form-control" formControlName="surname"/>
+    <input class="form-control" formControlName="surname" data-form-type="other"/>
   </div>
   
   <div ngxValidationErrorsArray>
@@ -36,12 +36,12 @@
 <form [formGroup]="heroForm" validationContext="user.registration">
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Name</label>
-    <input class="form-control" formControlName="name2"/>
+    <input class="form-control" formControlName="name2" data-form-type="other"/>
   </div>
 
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Surmane</label>
-    <input class="form-control" formControlName="surname2"/>
+    <input class="form-control" formControlName="surname2" data-form-type="other"/>
   </div>
 
   <button class="btn btn-primary" [disabled]="heroForm.invalid">Submit</button>
