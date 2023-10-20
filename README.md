@@ -26,8 +26,8 @@ where:
 - fieldName is the form control name 
 - errorType is the error key in all lowercase
 
-the keys are then translated using a pipe enriching the message using parameters taken from the error object.
-if the key is not present in the language file the message fallbacks to `${defaultContext}.errors.${errorType}` (_user.registration.name.minlength_ => _general.errors.minlength_)
+The keys are then translated using a pipe enriching the message using parameters taken from the error object.
+If the key is not present in the language file the message fallbacks to `${defaultContext}.errors.${errorType}` (_user.registration.name.errors.minlength_ => _general.errors.minlength_)
 
 ## Install
 
@@ -52,7 +52,7 @@ export class AppModule {
 }
 ```
 ### Components with auto errors injection
-now you can use validationContext and ngxValidationErrorsField in your template
+Now you can use validationContext and ngxValidationErrorsField in your template:
 
 ```angular2html
 <form [formGroup]="heroForm" validationContext="user.registration">
@@ -91,7 +91,7 @@ errors
 
 The structural directive needs the form control as parameter (like heroForm.get('name'), if you find a better way to retrieve the inner form control instance please open an issue).
 
-UPDATE: In v3, the structural directive no longer needs the form control as a parameter.  Instead, the logic searches its children for an 'input' and gets the formControlName value.
+UPDATE: In v3, the structural directive no longer needs the form control as a parameter.  Instead, the logic searches its children for an 'input' and gets the formControlName value.  This isn't perfect, but does work for simple scenarios.
 
 It exposes errors in the template context so you can use them in the ui.
 
@@ -113,7 +113,7 @@ import {ValidationContextComponent} from '@xtream/ngx-validation-errors';
 ```
 ### Configuration
 
-The library can be configured using the `forRoot` static method 
+The library can be configured using the `forRoot` static method:
 
 ```typescript
 import {NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
@@ -138,8 +138,11 @@ export class AppModule {
 }
 ```
  
-you can set the default validation context and the errorComponent. The last one is instantiated dynamically using 
+You can set the default validation context and the errorComponent. The last one is instantiated dynamically using 
 component factory and substituted to the default one, so remember to add it to the entryComponents list.
+
+UPDATE:  With Angular 9+, you no longer need to add the error component to the entryComponents list.  As long as the component is decorated with `@Component()` then the component will be included automatically.
+
 It must accept 3 inputs:
 ```
 {
