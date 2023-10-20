@@ -86,5 +86,4 @@ export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesPr
     AppComponent
   ]
 })
-export class AppModule {
-}
+export class AppModule {}

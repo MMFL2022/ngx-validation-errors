@@ -1,7 +1,5 @@
 import {
-  //ChangeDetectorRef,
   Component,
-  //ComponentFactoryResolver,
   ContentChild,
   ElementRef,
   Inject,
@@ -23,28 +21,15 @@ import {Observable} from 'rxjs';
 })
 export class FormFieldContainerComponent extends FormValidationContainer {
 
+  @ContentChild(FormControlName, {static: true}) _formControl: FormControlName;
+  @ContentChild(FormControlName, {read: ElementRef, static: true}) _input: ElementRef;
+
   constructor(
-    // tslint:disable-next-line:variable-name
-    //private _elRef: ElementRef,
-    // tslint:disable-next-line:variable-name
     private _renderer: Renderer2,
-    // tslint:disable-next-line:variable-name
     @Optional() @Inject(MESSAGES_PROVIDER) private _messageProvider: { instant(key: string): string; },
-    // tslint:disable-next-line:variable-name
-    //private _cdRef: ChangeDetectorRef,
-    // tslint:disable-next-line:variable-name
-    //private _componentFactoryResolver: ComponentFactoryResolver,
-    // tslint:disable-next-line:variable-name
     @Inject(VALIDATION_ERROR_CONFIG) private  _validationErrorsConfig: ValidationErrorsConfig) {
-    //super(_elRef, _renderer, _messageProvider, _cdRef, _componentFactoryResolver, _validationErrorsConfig);
     super(_renderer, _messageProvider, _validationErrorsConfig);
   }
-
-  // tslint:disable-next-line:variable-name
-  @ContentChild(FormControlName, {static: true}) _formControl: FormControlName;
-
-  // tslint:disable-next-line:variable-name
-  @ContentChild(FormControlName, {read: ElementRef, static: true}) _input: ElementRef;
 
   get formControl() {
     return this._formControl.control;

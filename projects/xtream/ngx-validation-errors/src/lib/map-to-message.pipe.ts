@@ -12,14 +12,14 @@ export class MapToMessagePipe implements PipeTransform {
 
   constructor(
     @Optional() cdRef: ChangeDetectorRef,
-    @Optional() @Inject(MESSAGES_PIPE_FACTORY_TOKEN) private  pipeFactory: any
-  ) {
+    @Optional() @Inject(MESSAGES_PIPE_FACTORY_TOKEN) private  pipeFactory: any) {
 
     if (pipeFactory) {
       try {
         this.pipe = pipeFactory(cdRef);
       } catch (e) {
         console.error(e);
+
         this.pipe = new InnerMapToMessagePipe();
       }
     } else {
@@ -30,5 +30,4 @@ export class MapToMessagePipe implements PipeTransform {
   transform(value: any, ...args: any): any {
     return this.pipe.transform(value, ...args);
   }
-
 }

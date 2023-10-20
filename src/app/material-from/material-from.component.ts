@@ -10,19 +10,21 @@ import { ValidationContextComponent } from 'projects/xtream/ngx-validation-error
   styleUrls: ['./material-from.component.css']
 })
 export class MaterialFromComponent implements OnInit {
+  
+  @ViewChild('firstForm', {read: ValidationContextComponent, static: true}) validationContext: ValidationContextComponent;
 
   heroForm: FormGroup;
   testForm: FormGroup;
-  @ViewChild('firstForm', {read: ValidationContextComponent, static: true}) validationContext: ValidationContextComponent;
 
   constructor(private translateService: TranslateService) {
-    // this.testForm = new FormGroup({
-    //   name: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
-    //   surname: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)])
-    // });
+    this.testForm = new FormGroup({
+      name: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
+      surname: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)])
+    });
 
     this.heroForm = new FormGroup({
       name2: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
+      middleName2: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
       surname2: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)])
     });
   }
@@ -34,7 +36,7 @@ export class MaterialFromComponent implements OnInit {
 
   clearForm() {
     console.debug('this.validationContext', this.validationContext);
+    
     this.validationContext.clear();
-
   }
 }

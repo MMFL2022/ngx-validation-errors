@@ -19,5 +19,4 @@ export class CustomErrorsComponent implements OnInit {
   ngOnInit() {
     this.vcr.createEmbeddedView(this.template);
   }
-
 }

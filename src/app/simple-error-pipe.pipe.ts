@@ -6,11 +6,9 @@ import {SimpleMessagesProviderService} from './simple-messages-provider.service'
 })
 export class SimpleErrorPipe implements PipeTransform {
 
-  constructor(private messageProvider: SimpleMessagesProviderService, cdRef: ChangeDetectorRef) {
-  }
+  constructor(private messageProvider: SimpleMessagesProviderService, cdRef: ChangeDetectorRef) {}
 
   transform(value: any, args?: any): any {
     return this.messageProvider.instant(value);
   }
-
 }

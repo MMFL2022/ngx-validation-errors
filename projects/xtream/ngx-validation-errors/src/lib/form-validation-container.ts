@@ -1,8 +1,6 @@
 import {
   AfterContentInit,
-  //ChangeDetectorRef,
   Component,
-  //ComponentFactoryResolver,
   ComponentRef,
   ElementRef,
   HostBinding,
@@ -33,8 +31,6 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
   @ViewChild('errorsContainer', {read: ViewContainerRef, static: true}) errorsContainer: ViewContainerRef;
 
   public messages: string[];
-  private validationContext;
-  private componentRef: ComponentRef<any>;
 
   @HostBinding('class.has-error')
   public hasErrors: boolean;
@@ -42,20 +38,20 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
   @HostBinding('class.has-success')
   public hasSuccess: boolean;
 
+  private validationContext;
+  private componentRef: ComponentRef<any>;
   private subscription: Subscription;
 
   constructor(
-    //private elRef: ElementRef,
     private renderer: Renderer2,
     @Optional() @Inject(MESSAGES_PROVIDER) private messageProvider: { instant(key: string): string; },
-    //private cdRef: ChangeDetectorRef,
-    //private componentFactoryResolver: ComponentFactoryResolver,
     @Inject(VALIDATION_ERROR_CONFIG) private validationErrorsConfig: ValidationErrorsConfig) {
     this.validationContext = validationErrorsConfig.defaultContext;
   }
 
   ngAfterContentInit(): void {
     this.addErrorComponent();
+
     this.subscription = toChangeObservable(this.formControl).subscribe(value => {
       this.checkErrors();
       this.checkSuccess();
@@ -72,8 +68,6 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
   addErrorComponent() {
     if (this.errorsContainer && !this.componentRef) {
       this.errorsContainer.clear();
-      // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.validationErrorsConfig.errorComponent as any);
-      // this.componentRef = this.errorsContainer.createComponent(componentFactory);
       this.componentRef = this.errorsContainer.createComponent(this.validationErrorsConfig.errorComponent as any);
     }
   }
@@ -88,50 +82,56 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
 
   checkErrors() {
     const hasError = (!this.formControl.valid && this.formControl.dirty && this.formControl.touched) && !this.validationDisabled;
+
     if (hasError && this.el && this.el.nativeElement) {
       this.messages = Object.keys(this.formControl.errors || {}).map(error => {
         const fieldName = this.formControlName;
-        const errorKey = `${fieldName + ''}.errors.${error}`;
-        if (this.messageProvider &&
-          this.messageProvider.instant(`${this.validationContext}.${errorKey}`) === `${this.validationContext}.${errorKey}`) {
-          return `${this.validationErrorsConfig.defaultContext}.errors.${error}`;
+        const errorKey = `${fieldName}.errors.${error}`;
+        const validationKey = `${this.validationContext}.${errorKey}`;
+
+        if (this.messageProvider && this.messageProvider.instant(validationKey) === validationKey) {
+          let errorMessage = `${this.validationErrorsConfig.defaultContext}.errors.${error}`;
+          return errorMessage
+          ;
         } else {
-          return `${this.validationContext}.${errorKey}`;
+          return validationKey;
         }
       });
+
       const params = Object.values(this.formControl.errors || {}).reduce((a, b) => {
         a = {...a, ...b};
         return a;
       }, {});
+
       this.messageParams = this.messageParams ? {...this.messageParams, ...params} : params;
+
       if (this.messages && this.messages.length > 0) {
         this.messages = [this.messages[0]];
       }
+
       try {
         this.renderer.removeClass(this.el.nativeElement, 'is-valid');
-
       } catch (e) {
       }
-      this.renderer.addClass(this.el.nativeElement, 'is-invalid');
 
+      this.renderer.addClass(this.el.nativeElement, 'is-invalid');
     }
 
     this.hasErrors = hasError;
   }
 
   checkSuccess(): void {
-    const hasSuccess = (
-      this.formControl.valid &&
-      this.formControl.dirty && this.formControl.touched) &&
-      !this.validationDisabled;
+    const hasSuccess = (this.formControl.valid && this.formControl.dirty && this.formControl.touched) && !this.validationDisabled;
+
     if (hasSuccess && this.el && this.el.nativeElement) {
       this.messages = [];
+
       try {
         this.renderer.removeClass(this.el.nativeElement, 'is-invalid');
-
       } catch (e) {
       }
     }
+
     this.hasSuccess = hasSuccess;
   }
 
@@ -158,5 +158,4 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
     this.renderer.removeClass(this.el.nativeElement, 'is-invalid');
     this.messages = [];
   }
-
 }

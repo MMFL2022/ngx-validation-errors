@@ -3,8 +3,6 @@ import {AbstractControl, AbstractControlDirective} from '@angular/forms';
 import {ErrorsComponent} from './error-validation-config';
 
 @Component({
-
-  // tslint:disable-next-line:component-selector
   selector: 'input-errors',
   template: `
       <div class="error-wrapper">

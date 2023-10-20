@@ -19,6 +19,7 @@ export const defaultConfig = {
 
 export function configFactory(customConfig: ValidationErrorsConfig, currentConfig: ValidationErrorsConfig) {
   const actualConfig = {...currentConfig};
+
   if (customConfig) {
     if (customConfig.defaultContext) {
       actualConfig.defaultContext = customConfig.defaultContext;
@@ -28,6 +29,7 @@ export function configFactory(customConfig: ValidationErrorsConfig, currentConfi
       actualConfig.errorComponent = customConfig.errorComponent;
     }
   }
+
   return actualConfig;
 }
 
@@ -82,4 +84,3 @@ export class NgxValidationErrorsModule {
     };
   }
 }
-

@@ -6,8 +6,7 @@ import {errors} from './errors-mapping';
 })
 export class SimpleMessagesProviderService {
 
-  constructor() {
-  }
+  constructor() {}
 
   public instant(key: string) {
     if (key in errors) {

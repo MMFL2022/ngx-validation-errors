@@ -4,20 +4,17 @@ import {FormArrayContainerComponent} from './form-array-container.component';
 import {FormFieldEmptyContainerDirective} from './form-field-empty-container.directive';
 
 @Component({
-  // tslint:disable:component-selector
   selector: '[validationContext]',
   template: '<ng-content></ng-content>'
 })
 export class ValidationContextComponent implements AfterContentInit {
 
-  @ContentChildren(FormFieldContainerComponent, {descendants: true}) fieldValidators: QueryList<FormFieldContainerComponent>;
-  @ContentChildren(FormArrayContainerComponent, {descendants: true}) arrayValidators: QueryList<FormArrayContainerComponent>;
-  @ContentChildren(FormFieldEmptyContainerDirective, {descendants: true}) directives: QueryList<FormFieldEmptyContainerDirective>;
-
-  // tslint:disable:no-input-rename
   @Input() validationContext: string;
   @Input() innerValidationError: boolean;
 
+  @ContentChildren(FormFieldContainerComponent, {descendants: true}) fieldValidators: QueryList<FormFieldContainerComponent>;
+  @ContentChildren(FormArrayContainerComponent, {descendants: true}) arrayValidators: QueryList<FormArrayContainerComponent>;
+  @ContentChildren(FormFieldEmptyContainerDirective, {descendants: true}) directives: QueryList<FormFieldEmptyContainerDirective>;
 
   constructor(private cdRef: ChangeDetectorRef) {
   }
@@ -67,5 +64,4 @@ export class ValidationContextComponent implements AfterContentInit {
 
     this.cdRef.markForCheck();
   }
-
 }

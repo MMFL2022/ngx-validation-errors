@@ -19,5 +19,4 @@ import { NgxValidationErrorsModule } from 'projects/xtream/ngx-validation-errors
     FormSubmitDirective
   ]
 })
-export class SharedModule {
-}
+export class SharedModule {}
