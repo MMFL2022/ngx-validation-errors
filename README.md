@@ -9,9 +9,10 @@ Choose the version corresponding to your Angular version:
 
  Angular     | @xtream/ngx-validation-errors
  ----------- | ------------------- 
- 7           | 0.x               
- 8           | 1.x      
- 9           | 2.x                
+ 7           | 0.x
+ 8           | 1.x
+ 9           | 2.x
+ 10+         | 3.x
 
 
 ## Messages generation
@@ -22,8 +23,8 @@ It creates a translation key that follows the following template for each key in
 
 where:
 - validationContext is the form identifier (for example _user.registration_ default: "general")
-- fieldName is the form control name in **SCREAMING_SNAKE_CASE** 
-- errorType is the error key in **SCREAMING_SNAKE_CASE** 
+- fieldName is the form control name 
+- errorType is the error key in all lowercase
 
 the keys are then translated using a pipe enriching the message using parameters taken from the error object.
 if the key is not present in the language file the message fallbacks to `${defaultContext}.errors.${errorType}` (_user.registration.name.minlength_ => _general.errors.minlength_)
@@ -81,14 +82,17 @@ errors
 
 ```angular2html
 <form [formGroup]="heroForm" validationContext="user.registration">
-    <mat-form-field *ngxValidationErrors="heroForm.get('name'); errors as errors">
+    <mat-form-field *ngxValidationErrors="let errorMessages = errors">
       <input matInput formControlName="name" placeholder="name"/>
-      <mat-error *ngIf="errors">{{errors}}</mat-error>
+      <mat-error *ngIf="errorMessages">{{errorMessages}}</mat-error>
     </mat-form-field>
 </form>
 ```
 
-the structural directive needs the form control as parameter (like heroForm.get('name'), if you find a better way to retrieve the inner form control instance please open an issue).
+The structural directive needs the form control as parameter (like heroForm.get('name'), if you find a better way to retrieve the inner form control instance please open an issue).
+
+UPDATE: In v3, the structural directive no longer needs the form control as a parameter.  Instead, the logic searches its children for an 'input' and gets the formControlName value.
+
 It exposes errors in the template context so you can use them in the ui.
 
 ### Clearing
@@ -171,7 +175,7 @@ export function translatePipeFactoryCreator(translateService: TranslateService) 
 
 ```
 
-If you have a custom message mapping you can configure it  providing a custom pipe and service.
+If you have a custom message mapping you can configure it providing a custom pipe and service.
 
 ```typescript
 import {MESSAGES_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
