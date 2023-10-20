@@ -3,8 +3,8 @@ import {ChangeDetectorRef, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-// import {MESSAGES_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
-import { MESSAGES_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule } from 'projects/xtream/ngx-validation-errors/src/public-api';
+// import {MESSAGE_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
+import { MESSAGE_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule } from 'projects/xtream/ngx-validation-errors/src/public-api';
 import {TranslateLoader, TranslateModule, TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
@@ -63,7 +63,7 @@ export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesPr
   ],
   providers: [
     // {
-    //   provide: MESSAGES_PIPE_FACTORY_TOKEN,
+    //   provide: MESSAGE_PIPE_FACTORY_TOKEN,
     //   useFactory: translatePipeFactoryCreator,
     //   deps: [TranslateService]
     // },
@@ -72,7 +72,7 @@ export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesPr
     //   useExisting: SimpleMessagesProviderService
     // }
     {
-      provide: MESSAGES_PIPE_FACTORY_TOKEN,
+      provide: MESSAGE_PIPE_FACTORY_TOKEN,
       useFactory: TranslatePipe,
       deps: [TranslateService]
     },
@@ -81,7 +81,6 @@ export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesPr
       useExisting: TranslateService
     }
   ],
-  //entryComponents: [CustomErrorsComponent],
   bootstrap: [
     AppComponent
   ]

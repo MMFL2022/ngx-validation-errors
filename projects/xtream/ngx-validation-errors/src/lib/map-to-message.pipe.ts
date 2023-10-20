@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Inject, Optional, Pipe, PipeTransform} from '@angular/core';
 import {InnerMapToMessagePipe} from './inner-map-to-message.pipe';
-import {MESSAGES_PIPE_FACTORY_TOKEN} from './injection-tokens';
+import {MESSAGE_PIPE_FACTORY_TOKEN} from './injection-tokens';
 
 @Pipe({
   name: 'mapToMessage',
@@ -12,7 +12,7 @@ export class MapToMessagePipe implements PipeTransform {
 
   constructor(
     @Optional() cdRef: ChangeDetectorRef,
-    @Optional() @Inject(MESSAGES_PIPE_FACTORY_TOKEN) private  pipeFactory: any) {
+    @Optional() @Inject(MESSAGE_PIPE_FACTORY_TOKEN) private  pipeFactory: any) {
 
     if (pipeFactory) {
       try {

@@ -5,7 +5,7 @@
 
 <h2 style="text-align: center">xtream validation errors</h2>
 
-<form [formGroup]="heroForm" [appFormSubmit]="heroForm" #firstForm validationContext="newHero" innerValidationError="true">
+<form [formGroup]="heroForm" [appFormSubmit]="heroForm" #firstForm validationContext="newHero" [innerValidationError]="true">
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Name</label>
     <input class="form-control" formControlName="name" data-form-type="other"/>

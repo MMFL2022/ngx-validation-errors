@@ -79,7 +79,7 @@ also without this @ngx-translate or with this or other similar libraries
 
 To update you need to modify the app.module.ts like this:
 ```typescript
-import {MESSAGES_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule} from '@xtream/ngx-validation-errors'; 
+import {MESSAGE_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule} from '@xtream/ngx-validation-errors'; 
 
 export function translatePipeFactoryCreator(translateService: TranslateService) {
   return (detector: ChangeDetectorRef) => new TranslatePipe(translateService, detector);
@@ -88,7 +88,7 @@ export function translatePipeFactoryCreator(translateService: TranslateService) 
 @NgModule({
   providers: [
     {
-     provide: MESSAGES_PIPE_FACTORY_TOKEN,
+     provide: MESSAGE_PIPE_FACTORY_TOKEN,
      useFactory: translatePipeFactoryCreator,
      deps: [TranslateService]
     },
@@ -108,7 +108,7 @@ If you want to use a custom error mapping without translation you can provide yo
 like this:
 
 ```typescript
-import {MESSAGES_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
+import {MESSAGE_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
 
 export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesProviderService) {
   return (detector: ChangeDetectorRef) => new SimpleErrorPipe(messageProvider, detector);
@@ -117,7 +117,7 @@ export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesPr
 @NgModule({
   providers: [
     {
-      provide: MESSAGES_PIPE_FACTORY_TOKEN,
+      provide: MESSAGE_PIPE_FACTORY_TOKEN,
       useFactory: simpleCustomPipeFactoryCreator,
       deps: [SimpleMessagesProviderService]
     },

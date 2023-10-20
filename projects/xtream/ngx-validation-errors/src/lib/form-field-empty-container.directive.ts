@@ -4,7 +4,9 @@ import {VALIDATION_ERROR_CONFIG, ValidationErrorsConfig} from './error-validatio
 import {MESSAGES_PROVIDER} from './injection-tokens';
 
 export class ForFieldErrorsContext {
-  constructor(public errors: string[]) {
+  constructor(
+    public errors: string[],
+    public params: {} = {}) {
   }
 }
 
@@ -23,7 +25,10 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
   private formControlRef: AbstractControl;
   private inputName = '';
   private validationContext;
-  private context = {errors: [] as string[]};
+  private context = {
+    errors: [] as string[],
+    params: {}
+  };
 
   constructor(
     private renderer: Renderer2,
@@ -101,6 +106,7 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
       if ((messages && !this.messages) || (!messages && this.messages) || (messages && messages[0] !== this.messages[0])) {
         this.messages = messages;
         this.context.errors = messages;
+        this.context.params = this.messageParams;
 
         if (this.rootEl) {
           if (messages) {
@@ -125,6 +131,7 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
     this.formControl.setErrors(null);
     this.messages = [];
     this.context.errors = undefined;
+    this.context.params = undefined;
   }
 
   get formControl() {

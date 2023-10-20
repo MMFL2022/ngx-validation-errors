@@ -7,7 +7,7 @@ import {FormArray, FormGroup} from '@angular/forms';
 export class FormSubmitDirective {
 
   @Input()
-  private appFormSubmit: FormGroup;
+  public appFormSubmit: FormGroup;
 
   constructor() {
   }

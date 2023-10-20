@@ -156,7 +156,7 @@ It must accept 3 inputs:
 You can use @ngx-translate providing the translate service and a pipe factory.
 
 ```typescript
-import {MESSAGES_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule} from '@xtream/ngx-validation-errors'; 
+import {MESSAGE_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule} from '@xtream/ngx-validation-errors'; 
 
 export function translatePipeFactoryCreator(translateService: TranslateService) {
   return (detector: ChangeDetectorRef) => new TranslatePipe(translateService, detector);
@@ -165,7 +165,7 @@ export function translatePipeFactoryCreator(translateService: TranslateService) 
 @NgModule({
   providers: [
     {
-     provide: MESSAGES_PIPE_FACTORY_TOKEN,
+     provide: MESSAGE_PIPE_FACTORY_TOKEN,
      useFactory: translatePipeFactoryCreator,
      deps: [TranslateService]
     },
@@ -181,7 +181,7 @@ export function translatePipeFactoryCreator(translateService: TranslateService) 
 If you have a custom message mapping you can configure it providing a custom pipe and service.
 
 ```typescript
-import {MESSAGES_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
+import {MESSAGE_PIPE_FACTORY_TOKEN, MESSAGES_PROVIDER, NgxValidationErrorsModule} from '@xtream/ngx-validation-errors';
 
 export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesProviderService) {
   return (detector: ChangeDetectorRef) => new SimpleErrorPipe(messageProvider, detector);
@@ -190,7 +190,7 @@ export function simpleCustomPipeFactoryCreator(messageProvider: SimpleMessagesPr
 @NgModule({
   providers: [
     {
-      provide: MESSAGES_PIPE_FACTORY_TOKEN,
+      provide: MESSAGE_PIPE_FACTORY_TOKEN,
       useFactory: simpleCustomPipeFactoryCreator,
       deps: [SimpleMessagesProviderService]
     },

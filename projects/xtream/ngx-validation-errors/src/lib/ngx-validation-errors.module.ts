@@ -55,10 +55,7 @@ export function configFactory(customConfig: ValidationErrorsConfig, currentConfi
     ValidationContextComponent,
     FormFieldEmptyContainerDirective,
     MapToMessagePipe
-  ],
-  // entryComponents: [
-  //   InputErrorsComponent
-  // ]
+  ]
 })
 export class NgxValidationErrorsModule {
 

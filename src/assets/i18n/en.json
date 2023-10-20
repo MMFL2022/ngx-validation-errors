@@ -2,6 +2,13 @@
   "home": {
     "title": "Validation erorrs example"
   },
+  "general": {
+    "errors": {
+      "minlength": "The field is too short. At least {{requiredLength}} are required.",
+      "maxlength": "The field is too long. Max {{requiredLength}}",
+      "required" : "The field is required."
+    }
+  },
   "user": {
     "registration": {
       "name2": {

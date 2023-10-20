@@ -20,7 +20,6 @@ export class ValidationContextComponent implements AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    console.log('directives', this.directives);
     if (this.fieldValidators) {
       this.fieldValidators.forEach(i => {
         i.setValidationContext(this.validationContext);

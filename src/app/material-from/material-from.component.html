@@ -4,18 +4,18 @@
 
 <h2 style="text-align: center">xtream validation errors</h2>
 
-<form [formGroup]="testForm" validationContext="newHero" innerValidationError="true" #firstForm>
+<form [formGroup]="testForm" validationContext="newHero" [innerValidationError]="true" #firstForm>
   <div style="display:flex;flex-direction: column;">
-    <mat-form-field *ngxValidationErrors="let errorMessages = errors">
+    <mat-form-field *ngxValidationErrors="let errorMessages = errors; let errorParams = params">
       <input matInput formControlName="name" placeholder="name" data-form-type="other"/>
-      <mat-error *ngIf="errorMessages">{{errorMessages}}</mat-error>
+      <mat-error *ngFor="let errorMessage of errorMessages">{{ errorMessage | translate: errorParams }}</mat-error>
     </mat-form-field>
   </div>
 
   <div style="display:flex;flex-direction: column;">
-    <mat-form-field *ngxValidationErrors="let errorMessages = errors">
+    <mat-form-field *ngxValidationErrors="let errorMessages = errors; let errorParams = params">
       <input matInput formControlName="surname" placeholder="surname" data-form-type="other"/>
-      <mat-error *ngIf="errorMessages">{{errorMessages}}</mat-error>
+      <mat-error *ngFor="let errorMessage of errorMessages">{{ errorMessage | translate: errorParams }}</mat-error>
     </mat-form-field>
   </div>
 
@@ -25,23 +25,23 @@
 
 <form [formGroup]="heroForm" validationContext="user.registration">
   <div style="display:flex;flex-direction: column;">
-    <mat-form-field *ngxValidationErrors="let errorMessages = errors">
+    <mat-form-field *ngxValidationErrors="let errorMessages = errors; let errorParams = params">
       <input matInput formControlName="name2" placeholder="name2" data-form-type="other"/>
-      <mat-error *ngIf="errorMessages">{{errorMessages}}</mat-error>
+      <mat-error *ngFor="let errorMessage of errorMessages">{{ errorMessage | translate: errorParams }}</mat-error>
     </mat-form-field>
   </div>
 
   <div style="display:flex;flex-direction: column;">
-    <mat-form-field *ngxValidationErrors="let errorMessages = errors">
+    <mat-form-field *ngxValidationErrors="let errorMessages = errors; let errorParams = params">
       <input matInput formControlName="middleName2" placeholder="middleName2" data-form-type="other"/>
-      <mat-error *ngIf="errorMessages">{{errorMessages}}</mat-error>
+      <mat-error *ngFor="let errorMessage of errorMessages">{{ errorMessage | translate: errorParams }}</mat-error>
     </mat-form-field>
   </div>
 
   <div style="display:flex;flex-direction: column;">
-    <mat-form-field  *ngxValidationErrors="let errorMessages = errors">
+    <mat-form-field  *ngxValidationErrors="let errorMessages = errors; let errorParams = params">
       <input matInput formControlName="surname2" placeholder="surname2" data-form-type="other"/>
-      <mat-error *ngIf="errorMessages">{{errorMessages}}</mat-error>
+      <mat-error *ngFor="let errorMessage of errorMessages">{{ errorMessage | translate: errorParams }}</mat-error>
     </mat-form-field>
   </div>
 
