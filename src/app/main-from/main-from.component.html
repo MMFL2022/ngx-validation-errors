@@ -1,11 +1,7 @@
+<h2 style="text-align: center">validation errors</h2>
 
-<div style="width: 40%; text-align: center;margin: auto">
-  <img src="assets/images/logo-blu.svg"/>
-</div>
-
-<h2 style="text-align: center">xtream validation errors</h2>
-
-<form [formGroup]="heroForm" [appFormSubmit]="heroForm" #firstForm validationContext="newHero" [innerValidationError]="true">
+<form [formGroup]="heroForm" #firstForm [appFormSubmit]="heroForm" validationContext="newHero" [innerValidationError]="true">
+  <span>ngxValidationErrorsField with inner validation error</span>
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Name</label>
     <input class="form-control" formControlName="name" data-form-type="other"/>
@@ -20,7 +16,8 @@
   <button class="btn btn-primary" type="button" (click)="reset()">Reset</button>
 </form>
 
-<form [formGroup]="heroForm" validationContext="user.registration">
+<form [formGroup]="heroForm2" #secondForm validationContext="user.registration" class="mt-5">
+  <span>ngxValidationErrorsField with outer validation error</span>
   <div ngxValidationErrorsField class="input-wrapper form-group">
     <label>Name</label>
     <input class="form-control" formControlName="name2" data-form-type="other"/>
@@ -31,20 +28,66 @@
     <input class="form-control" formControlName="surname2" data-form-type="other"/>
   </div>
 
-  <button class="btn btn-primary" [disabled]="heroForm.invalid">Submit</button>
+  <button class="btn btn-primary" [disabled]="heroForm2.invalid">Submit</button>
 </form>
 
-<form [formGroup]="anotherForm" validationContext="anotherForm">
+<form [formGroup]="heroForm3" #fourthForm class="mt-5">
+  <span>Standard Validation</span>
+  <div class="input-wrapper form-group">
+    <label>Name</label>
+    <input class="form-control" #name3 id="name3" formControlName="name3" data-form-type="other"/>
+
+    <div *ngIf="heroForm3.controls['name3'].invalid && (heroForm3.controls['name3'].dirty || heroForm3.controls['name3'].touched)" class="alert">
+      <div *ngIf="heroForm3.controls['name3'].errors?.['required']">
+        Name is required.
+      </div>
+      <div *ngIf="heroForm3.controls['name3'].errors?.['pattern']">
+        Name can't have special characters.
+      </div>
+      <div *ngIf="heroForm3.controls['name3'].errors?.['minlength']">
+        Name must be at least 4 characters long.
+      </div>
+      <div *ngIf="heroForm3.controls['name3'].errors?.['maxlength']">
+        Name can't be more than 10 characters long.
+      </div>
+    </div>
+  </div>
+
+  <div class="input-wrapper form-group">
+    <label>Surmane</label>
+    <input class="form-control" formControlName="surname3" data-form-type="other"/>
+
+    <div *ngIf="heroForm3.controls['surname3'].invalid && (heroForm3.controls['surname3'].dirty || heroForm3.controls['surname3'].touched)" class="alert">
+      <div *ngIf="heroForm3.controls['surname3'].errors?.['required']">
+        Surname is required.
+      </div>
+      <div *ngIf="heroForm3.controls['surname3'].errors?.['pattern']">
+        Surname can't have special characters.
+      </div>
+      <div *ngIf="heroForm3.controls['surname3'].errors?.['minlength']">
+        Surname must be at least 4 characters long.
+      </div>
+      <div *ngIf="heroForm3.controls['surname3'].errors?.['maxlength']">
+        Surname can't be more than 10 characters long.
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" [disabled]="heroForm3.invalid">Submit</button>
+</form>
+
+<form [formGroup]="anotherForm" #thirdForm validationContext="anotherForm" class="mt-5">
+  <span>ngxValidationErrors using variables</span>
   <div *ngxValidationErrors="let errorMessages = errors; let errorParams = params" class="input-wrapper form-group">
     <label>Another Name</label>
     <input class="form-control" formControlName="anotherName" data-form-type="other"/>
-    <mat-error *ngFor="let errorMessage of errorMessages">{{ errorMessage | translate: errorParams }}</mat-error>
+    <span *ngFor="let errorMessage of errorMessages">{{ errorMessage | translate: errorParams }}</span>
   </div>
 
   <div *ngxValidationErrors="let errorMessages = errors; let errorParams = params" class="input-wrapper form-group">
     <label>Another Surmane</label>
     <input class="form-control" formControlName="anotherSurname" data-form-type="other"/>
-    <mat-error *ngFor="let errorMessage of errorMessages">{{ errorMessage | translate: errorParams }}</mat-error>
+    <span *ngFor="let errorMessage of errorMessages">{{ errorMessage | translate: errorParams }}</span>
   </div>
 
   <button class="btn btn-primary" [disabled]="anotherForm.invalid">Submit</button>

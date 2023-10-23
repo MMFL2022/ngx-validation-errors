@@ -84,9 +84,11 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
 
   checkErrors() {
     if (this.formControl != undefined) {
-      const hasError = (!this.formControl.valid && this.formControl.dirty && this.formControl.touched) && !this.validationDisabled;
+      //const hasError = (!this.formControl.valid && this.formControl.dirty && this.formControl.touched) && !this.validationDisabled;
+      const hasError = (!this.formControl.valid && this.formControl.touched) && !this.validationDisabled;
+      //console.log('checkErrors', this.formControl, this.formControl.valid, this.formControl.touched, (!this.formControl.valid && this.formControl.touched), this.validationDisabled, hasError);
   
-      if (hasError && this.el && this.el.nativeElement) {
+      if (hasError && this.el != undefined && this.el.nativeElement != undefined) {
         this.messages = Object.keys(this.formControl.errors || {}).map(error => {
           const fieldName = this.formControlName;
           const errorKey = `${fieldName}.errors.${error}`;
@@ -94,8 +96,8 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
   
           if (this.messageProvider && this.messageProvider.instant(validationKey) === validationKey) {
             let errorMessage = `${this.validationErrorsConfig.defaultContext}.errors.${error}`;
-            return errorMessage
-            ;
+
+            return errorMessage;
           } else {
             return validationKey;
           }
@@ -145,7 +147,7 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
     this.validationContext = context;
   }
 
-  setInnerValidation(innerValidation: boolean): void {
+  public setInnerValidation(innerValidation: boolean): void {
     this.innerValidationError = innerValidation;
   }
 
@@ -160,7 +162,7 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
   public clear() {
     if (this.formControl != undefined) {
       this.formControl.reset();
-      this.formControl.setErrors(null);
+      //this.formControl.setErrors(null);
     }
 
     if (this.el != undefined) {

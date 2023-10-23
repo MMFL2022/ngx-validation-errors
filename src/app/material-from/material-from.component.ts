@@ -12,6 +12,7 @@ import { ValidationContextComponent } from 'projects/xtream/ngx-validation-error
 export class MaterialFromComponent implements OnInit {
   
   @ViewChild('firstForm', {read: ValidationContextComponent, static: true}) validationContext?: ValidationContextComponent;
+  @ViewChild('secondForm', {read: ValidationContextComponent, static: true}) validationContext2?: ValidationContextComponent;
 
   heroForm: FormGroup;
   testForm: FormGroup;
@@ -39,6 +40,15 @@ export class MaterialFromComponent implements OnInit {
     
     if (this.validationContext != undefined) {
       this.validationContext.clear();
+    }
+    // this.testForm.reset();
+  }
+
+  clearForm2() {
+    console.debug('this.validationContext2', this.validationContext2);
+    
+    if (this.validationContext2 != undefined) {
+      this.validationContext2.clear();
     }
   }
 }

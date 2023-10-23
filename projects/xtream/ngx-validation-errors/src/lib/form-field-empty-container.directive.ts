@@ -59,7 +59,7 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
 
         break;
       } else {
-        if (this.inputName == '') {
+        if (this.inputName == undefined) {
           this.search(child.children);
         }
       }
@@ -124,13 +124,10 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
     this.validationContext = context;
   }
 
-  public setInnerValidation(innerValidation: boolean): void {
-  }
-
   public clear() {
     if (this.formControl != undefined) {
       this.formControl.reset();
-      this.formControl.setErrors(null);
+      //this.formControl.setErrors(null);
     }
     
     this.messages = [];

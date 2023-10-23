@@ -1,10 +1,6 @@
-<div style="width: 40%; text-align: center;margin: auto">
-  <img src="assets/images/logo-blu.svg"/>
-</div>
+<h2 style="text-align: center">validation errors for Angular Material</h2>
 
-<h2 style="text-align: center">xtream validation errors</h2>
-
-<form [formGroup]="testForm" validationContext="newHero" [innerValidationError]="true" #firstForm>
+<form [formGroup]="testForm" validationContext="newHero" #firstForm>
   <div style="display:flex;flex-direction: column;">
     <mat-form-field *ngxValidationErrors="let errorMessages = errors; let errorParams = params">
       <input matInput formControlName="name" placeholder="name" data-form-type="other"/>
@@ -23,7 +19,7 @@
   <button mat-flat-button color="secondary" (click)="clearForm()">Clear</button>
 </form>
 
-<form [formGroup]="heroForm" validationContext="user.registration">
+<form [formGroup]="heroForm" validationContext="user.registration" class="mt-5" #secondForm>
   <div style="display:flex;flex-direction: column;">
     <mat-form-field *ngxValidationErrors="let errorMessages = errors; let errorParams = params">
       <input matInput formControlName="name2" placeholder="name2" data-form-type="other"/>
@@ -46,4 +42,5 @@
   </div>
 
   <button mat-raised-button color="primary"  [disabled]="heroForm.invalid">Submit</button>
+  <button mat-flat-button color="secondary" (click)="clearForm2()">Clear</button>
 </form>

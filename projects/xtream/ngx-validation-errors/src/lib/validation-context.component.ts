@@ -20,9 +20,6 @@ export class ValidationContextComponent implements AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    if (this.validationContext != undefined) {
-
-    }
     if (this.fieldValidators != undefined) {
       this.fieldValidators.forEach(i => {
         if (this.validationContext != undefined) {
@@ -48,8 +45,6 @@ export class ValidationContextComponent implements AfterContentInit {
         if (this.validationContext != undefined) {
           i.setValidationContext(this.validationContext);
         }
-        
-        i.setInnerValidation(this.innerValidationError);
       });
     }
   }
