@@ -91,11 +91,11 @@ export abstract class FormValidationContainer implements AfterContentInit, OnDes
       if (hasError && this.el != undefined && this.el.nativeElement != undefined) {
         this.messages = Object.keys(this.formControl.errors || {}).map(error => {
           const fieldName = this.formControlName;
-          const errorKey = `${fieldName}.errors.${error}`;
+          const errorKey = `validation.${fieldName}.${error}`;
           const validationKey = `${this.validationContext}.${errorKey}`;
   
           if (this.messageProvider && this.messageProvider.instant(validationKey) === validationKey) {
-            let errorMessage = `${this.validationErrorsConfig.defaultContext}.errors.${error}`;
+            let errorMessage = `${this.validationErrorsConfig.defaultContext}.validation.${error}`;
 
             return errorMessage;
           } else {

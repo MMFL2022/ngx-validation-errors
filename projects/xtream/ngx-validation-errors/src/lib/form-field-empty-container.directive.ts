@@ -49,7 +49,7 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
     for (let i = 0; i < nodes.length; i++) {
       const child = nodes[i];
       
-      if (child.tagName == 'INPUT') {
+      if (child.tagName == 'INPUT' || child.tagName == 'SELECT' || child.tagName == 'MAT-SELECT') {
         let childName = child.getAttribute('formControlName')
         if (childName != undefined) {
           this.inputName = childName;
@@ -80,11 +80,11 @@ export class FormFieldEmptyContainerDirective implements DoCheck, AfterContentIn
       if (hasError) {
         messages = Object.keys(this.formControl.errors || {}).map(error => {
           const fieldName = this.formControlName;
-          const errorKey = `${fieldName}.errors.${error}`;
+          const errorKey = `validation.${fieldName}.${error}`;
           const validationKey = `${this.validationContext}.${errorKey}`;
           
           if (this.messageProvider && this.messageProvider.instant(validationKey) === validationKey) {
-            let errorMessage = `${this.validationErrorsConfig.defaultContext}.errors.${error}`;
+            let errorMessage = `${this.validationErrorsConfig.defaultContext}.validation.${error}`;
 
             return errorMessage;
           } else {

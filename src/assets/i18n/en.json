@@ -3,7 +3,7 @@
     "title": "Validation erorrs example"
   },
   "general": {
-    "errors": {
+    "validation": {
       "minlength": "The field is too short. At least {{requiredLength}} are required.",
       "maxlength": "The field is too long. Max {{requiredLength}}",
       "required" : "The field is required."
@@ -11,8 +11,8 @@
   },
   "user": {
     "registration": {
-      "name2": {
-        "errors": {
+      "validation": {
+        "name2": {
           "minlength" : "Name must be at least {{requiredLength}} characters",
           "maxlength": "The Name field is too long. You need to insert at least {{requiredLength}}",
           "required" : "Name is required"
